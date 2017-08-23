@@ -2,6 +2,8 @@ package hu.mixing.main;
 
 import java.util.Scanner;
 
+import hu.mixing.setting.OneExtruder;
+
 public class Program {
 	private boolean szam = true;
 	private String osszRetegSzamString;
@@ -33,12 +35,12 @@ public class Program {
 	}
 
 	public void getOsszRetegSzamInt() {
-		HaromCsiga haromcsiga = new HaromCsiga();
-		EgyCsiga egycsiga = new EgyCsiga();
+		//HaromCsiga haromcsiga = new HaromCsiga();
+		OneExtruder egycsiga = new OneExtruder();
 		if (osszRetegSzamInt == 1) {
 			egycsiga.BeOlvas();
 		} else if (osszRetegSzamInt == 3) {
-			haromcsiga.InduloPont();
+			//haromcsiga.InduloPont();
 		} else if (osszRetegSzamInt == 4) {
 			System.err.println("Hozzá csapod valamelyik géphez a GBL-t??");
 			new Program();
