@@ -94,7 +94,6 @@ public class OneExtruder {
 		for (int i = 0; i < anyagSzazalek.length; i++) {
 			osszSzazalek = osszSzazalek + anyagSzazalek[i];
 		}
-
 		if (osszSzazalek == 100) {
 			try (PrintWriter pw = new PrintWriter(new FileWriter("f:\\keveres.txt"))) {
 				pw.println();
@@ -105,7 +104,6 @@ public class OneExtruder {
 				System.out.println("Zsák = 25kg\nVödör = 5kg");
 				System.out.println("Összesen: " + osszeMennyisegInt + " kg keveresz!");
 				for (int i = 0; i < anyagSzazalek.length; i++) {
-
 					double egyszazalek = osszeMennyisegInt / 100;
 					double eredmeny = egyszazalek * anyagSzazalek[i];
 					double zsak = eredmeny / 25;

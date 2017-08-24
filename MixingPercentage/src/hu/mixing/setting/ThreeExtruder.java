@@ -34,7 +34,6 @@ public class ThreeExtruder {
 	private boolean szam = false;
 
 	public ThreeExtruder() {
-
 		System.out.println("Három Extruder");
 		beOlvasOsszKg();
 		AExtruder();
@@ -44,13 +43,12 @@ public class ThreeExtruder {
 		if (abcExtruder == 100) {
 			BeOlvasAExtruder();
 		} else {
-			System.out.println(abcExtruder+"% Biztos, hogy jó a % ?");
+			System.out.println(abcExtruder + "% Biztos, hogy jó a % ?");
 			new ThreeExtruder();
 		}
 	}
 
 	private double beOlvasOsszKg() {
-
 		szam = false;
 		System.out.println("Összesen hány kg szeretnél keverni ? (pl: 500)");
 		do {
@@ -68,7 +66,6 @@ public class ThreeExtruder {
 
 	private int AExtruder() {
 		szam = false;
-
 		System.out.println("Az \"A\" extruder hány százalék: ");
 		do {
 			aExtruderSzazalekString = beolvas.next();
@@ -85,7 +82,6 @@ public class ThreeExtruder {
 
 	private int BExtruder() {
 		szam = false;
-
 		System.out.println("Az \"B\" extruder hány százalék: ");
 		do {
 			bExtruderSzazalekString = beolvas.next();
@@ -102,7 +98,6 @@ public class ThreeExtruder {
 
 	private int CExtruder() {
 		szam = false;
-
 		System.out.println("Az \"C\" extruder hány százalék: ");
 		do {
 			cExtruderSzazalekString = beolvas.next();
@@ -119,7 +114,6 @@ public class ThreeExtruder {
 
 	private int beOlvasAnyagFajta() {
 		szam = false;
-
 		System.out.println(" hány fajta anyag lesz: ");
 		do {
 			anyagFajta = beolvas.next();
@@ -136,9 +130,7 @@ public class ThreeExtruder {
 
 	private double BeSzazalek() {
 		szam = false;
-
 		do {
-
 			anyagSzazalek = beolvas.next();
 			try {
 				beSzazalek = Double.parseDouble(anyagSzazalek);
@@ -170,7 +162,6 @@ public class ThreeExtruder {
 		beolvas.reset();
 		for (int i = 0; i < anyagSzazalekA.length; i++) {
 			osszSzazalekA = osszSzazalekA + anyagSzazalekA[i];
-
 		}
 		System.out.print("\"B\"-ba");
 		beOlvasAnyagFajta();

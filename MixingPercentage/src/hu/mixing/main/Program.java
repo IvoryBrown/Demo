@@ -40,9 +40,6 @@ public class Program {
 			new OneExtruder();
 		} else if (osszRetegSzamInt == 3) {
 			new ThreeExtruder();
-		} else if (osszRetegSzamInt == 4) {
-			System.err.println("Hozzá csapod valamelyik géphez a GBL-t??");
-			new Program();
 		} else {
 			System.err.println("Gondlod újra!");
 			new Program();
