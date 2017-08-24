@@ -23,7 +23,10 @@ public class OneExtruder {
 	private String be;
 
 	public OneExtruder() {
-
+		System.out.println("Egy Extruder!");
+		beOlvasOsszKg();
+		beOlvasAnyagFajta();
+		BeOlvas();
 	}
 
 	private double beOlvasOsszKg() {
@@ -74,11 +77,7 @@ public class OneExtruder {
 	}
 
 	public void BeOlvas() {
-		System.out.println("Egy Csiga!");
 		osszSzazalek = 0;
-		beOlvasOsszKg();
-		beOlvasAnyagFajta();
-
 		double[] anyagSzazalek = new double[mennyiseg];
 		ArrayList<String> anyagNev = new ArrayList<String>();
 
@@ -149,7 +148,7 @@ public class OneExtruder {
 			System.out.println("____");
 			System.err.println(osszSzazalek + "% Bammeg Jenőtől tanultál számolni?");
 			System.out.println();
-
+			BeOlvas();
 		} else {
 			System.out.println();
 			for (int i = 0; i < anyagSzazalek.length; i++) {
@@ -158,7 +157,7 @@ public class OneExtruder {
 			System.out.println("____");
 			System.err.println(osszSzazalek + "% Bammeg Jenőtől tanultál számolni?");
 			System.out.println();
-
+			BeOlvas();
 		}
 
 	}
