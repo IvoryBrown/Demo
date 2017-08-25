@@ -18,7 +18,8 @@ public class Program {
 	public Program(String title) {
 		JFrame frame = new JFrame();
 		frame.setTitle(title);
-		frame.setSize(1300, 800);
+		frame.setSize(1200, 700);
+		centerWindow(frame);
 		frame.add(getTablePanel());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -110,6 +111,13 @@ public class Program {
 	@Override
 	public String toString() {
 		return (status) ? "Adatok felsorolása sikeresen" : "Alkalmazási hiba történt";
+	}
+	
+	public static void centerWindow(java.awt.Window frame) {
+		java.awt.Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+		int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+		frame.setLocation(x, y);
 	}
 
 	public static void main(String[] args) {
