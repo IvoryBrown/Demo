@@ -18,7 +18,7 @@ public class Program {
 	public Program(String title) {
 		JFrame frame = new JFrame();
 		frame.setTitle(title);
-		frame.setSize(800, 500);
+		frame.setSize(1300, 800);
 		frame.add(getTablePanel());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -27,7 +27,9 @@ public class Program {
 	private JPanel getTablePanel() {
 		JPanel tableJPanel = new JPanel();
 		tableJPanel.setLayout(new BorderLayout());
-		String[] columns = { "Országok", "Főváros", "Földrajzi Hely", "Terület", "Államforma", "Népesség" };
+		String[] columns = { "Országok", "Főváros", "Földrajzi Hely", "Terület", "Államforma", "Népesség",
+				"Népesség Fővaros", "Autójel", "Country", "Capital", "Pénznem", "Pénzjel", "Váltopénz", "Telefon",
+				"GDP", "KAT" };
 		Object[][] data = getEmployeeDetails();
 		JTable employeeTable = new JTable(data, columns);
 		tableJPanel.add(employeeTable.getTableHeader(), BorderLayout.NORTH);
@@ -59,6 +61,17 @@ public class Program {
 				data[i][j++] = rs.getString("foldr_hely");
 				data[i][j++] = rs.getInt("terulet");
 				data[i][j++] = rs.getString("allamforma");
+				data[i][j++] = rs.getInt("nepesseg");
+				data[i][j++] = rs.getInt("nep_fovaros");
+				data[i][j++] = rs.getString("autojel");
+				data[i][j++] = rs.getString("country");
+				data[i][j++] = rs.getString("capital");
+				data[i][j++] = rs.getString("penznem");
+				data[i][j++] = rs.getString("penzjel");
+				data[i][j++] = rs.getString("valtopenz");
+				data[i][j++] = rs.getInt("telefon");
+				data[i][j++] = rs.getInt("gdp");
+				data[i][j++] = rs.getInt("kat");
 				i++;
 			}
 			status = true;
