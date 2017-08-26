@@ -1,6 +1,7 @@
 package hu.jdbc.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,21 +9,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-public class Program {
+public class Program extends JFrame {
 
 	private boolean status;
 
 	public Program(String title) {
-		JFrame frame = new JFrame();
-		frame.setTitle(title);
-		frame.setSize(1200, 700);
-		centerWindow(frame);
-		frame.add(getTablePanel());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+
+		this.setTitle(title);
+		this.setSize(1200, 700);
+		centerWindow(this);
+		this.add(getTablePanel());
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	private JPanel getTablePanel() {
@@ -33,6 +35,7 @@ public class Program {
 				"GDP", "KAT" };
 		Object[][] data = getEmployeeDetails();
 		JTable employeeTable = new JTable(data, columns);
+		employeeTable.setGridColor(Color.BLUE);
 		tableJPanel.add(employeeTable.getTableHeader(), BorderLayout.NORTH);
 		tableJPanel.add(employeeTable, BorderLayout.CENTER);
 		return tableJPanel;
@@ -79,7 +82,7 @@ public class Program {
 			statement.close();
 			connection.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		return data;
 	}
@@ -91,8 +94,7 @@ public class Program {
 				return rs.getRow();
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		return 0;
 	}
@@ -102,17 +104,16 @@ public class Program {
 			if (rs != null)
 				return rs.getMetaData().getColumnCount();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 		return 0;
 	}
 
 	@Override
 	public String toString() {
-		return (status) ? "Adatok felsorolása sikeresen" : "Alkalmazási hiba történt";
+		return (status) ? "Sikeres beolvasás" : "Alkalmazási hiba történt";
 	}
-	
+
 	public static void centerWindow(java.awt.Window frame) {
 		java.awt.Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
