@@ -10,7 +10,7 @@ public class Program {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-			new Swing();
+				new Swing();
 			}
 		});
 
