@@ -23,9 +23,10 @@ public class Swing extends JFrame implements ActionListener {
 	private JMenuItem exitItem;
 	private JPanel panel;
 	private JButton workersButton;
+	private JButton connectButton;
 	private JMenuItem workersItem;
 	DataBaseConnection dataBase = new DataBaseConnection();
-	
+	private String title="Dolgozok";
 	
 	@SuppressWarnings("static-access")
 	public Swing() {
@@ -42,13 +43,17 @@ public class Swing extends JFrame implements ActionListener {
 
 		panel = new JPanel();
 		panel.add(dataBase.subtitle);
-		panel.setBounds(10, 650, 1160, 25);
+		panel.setBounds(10, 650, 1050, 25);
 		panel.setBackground(Color.white);
 
 		workersButton = new JButton();
 		workersButton.setIcon(new ImageIcon("Image\\Workers.png"));
 		workersButton.setBounds(20, 100, 350, 200);
 		workersButton.addActionListener(this);
+
+		connectButton = new JButton("Connect");
+		connectButton.setBounds(1070, 650, 100, 25);
+		connectButton.addActionListener(this);
 
 		fileMenu.add(workersItem);
 		fileMenu.add(exitItem);
@@ -59,6 +64,7 @@ public class Swing extends JFrame implements ActionListener {
 		this.add(panel);
 		this.setJMenuBar(menu);
 		this.add(workersButton);
+		this.add(connectButton);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
@@ -68,8 +74,8 @@ public class Swing extends JFrame implements ActionListener {
 		if (e.getSource() == exitItem)
 			System.exit(0);
 		if (e.getSource() == workersButton || e.getSource() == workersItem)
-			new WorkersDaoImpl();
-		
-
+			 new WorkersDaoImpl(title);
+		if (e.getSource() == connectButton)
+			dataBase.subtitle.setText("todo");;
 	}
 }

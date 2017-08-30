@@ -16,37 +16,32 @@ import javax.swing.JTable;
 import hu.settings.CenterWindow;
 
 @SuppressWarnings("serial")
-public class WorkersDaoImpl extends JFrame implements WorkersInterface {
-
+public class WorkersDaoImpl extends JFrame {
+	
 	@SuppressWarnings("static-access")
-	public WorkersDaoImpl() {
-		this.setLayout(null);
+	public WorkersDaoImpl(String title) {
+		
+		this.setTitle(title);
 		this.setSize(1200, 750);
 		new CenterWindow().centerWindow(this);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(getTablePanel());
 		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	private JPanel getTablePanel() {
 		JPanel tableJPanel = new JPanel();
 		tableJPanel.setLayout(new BorderLayout());
-		String[] columns = { "Azonosító", "Vezeték Név", "Kereszt Név" };
+		String[] columns = { "Azonosító", "Vezeték Név", "Kereszt Név", "Születési Dátum", "Beosztás",
+				"Telefonszám", "Műszak", "Lakcím"};
 		Object[][] data = getAllworkers();
 		JTable employeeTable = new JTable(data, columns);
-		employeeTable.setGridColor(Color.BLUE);
+		employeeTable.setGridColor(Color.black);
 		tableJPanel.add(employeeTable.getTableHeader(), BorderLayout.NORTH);
 		tableJPanel.add(employeeTable, BorderLayout.CENTER);
 		return tableJPanel;
 	}
 
-	@Override
-	public void add(WorkersConfig workersConfig) {
-		// TODO Automatikusan előállított metóduscsonk
-
-	}
-
-	@Override
 	public Object[][] getAllworkers() {
 		Object[][] data = null;
 		final String DRIVER_NAME = "com.mysql.jdbc.Driver";
@@ -66,12 +61,16 @@ public class WorkersDaoImpl extends JFrame implements WorkersInterface {
 			int i = 0;
 			while (rs.next()) {
 				int j = 0;
-				data[i][j++] = rs.getInt("id_workers");
-				data[i][j++] = rs.getString("last_name");
-				data[i][j++] = rs.getString("first_name");
+				data[i][j++] = rs.getInt(1);
+				data[i][j++] = rs.getString(2);
+				data[i][j++] = rs.getString(3);
+				data[i][j++] = rs.getInt(4);
+				data[i][j++] = rs.getString(5);
+				data[i][j++] = rs.getInt(6);
+				data[i][j++] = rs.getInt(7);
+				data[i][j++] = rs.getString(8);
 				i++;
 			}
-
 			statement.close();
 			connection.close();
 		} catch (Exception e) {
