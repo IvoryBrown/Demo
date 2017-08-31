@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import hu.settings.CenterWindow;
 import hu.settings.DataBaseConnection;
-import hu.swing.workers.WorkersDaoImpl;
+import hu.swing.workers.WorkersSwing;
 
 @SuppressWarnings("serial")
 public class Swing extends JFrame implements ActionListener {
@@ -26,10 +26,11 @@ public class Swing extends JFrame implements ActionListener {
 	private JButton connectButton;
 	private JMenuItem workersItem;
 	DataBaseConnection dataBase = new DataBaseConnection();
-	private String title="Dolgozok";
+	WorkersSwing workersSwing = new WorkersSwing();
 	
 	@SuppressWarnings("static-access")
 	public Swing() {
+		super("Jdbc");
 		fileMenu = new JMenu("File");
 
 		menu = new JMenuBar();
@@ -74,7 +75,7 @@ public class Swing extends JFrame implements ActionListener {
 		if (e.getSource() == exitItem)
 			System.exit(0);
 		if (e.getSource() == workersButton || e.getSource() == workersItem)
-			 new WorkersDaoImpl(title);
+			workersSwing.Start();
 		if (e.getSource() == connectButton)
 			dataBase.subtitle.setText("todo");;
 	}
