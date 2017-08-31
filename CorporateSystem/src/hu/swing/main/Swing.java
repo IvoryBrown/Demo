@@ -48,7 +48,7 @@ public class Swing extends JFrame implements ActionListener {
 		panel.setBackground(Color.white);
 
 		workersButton = new JButton();
-		workersButton.setIcon(new ImageIcon("Image\\Workers.png"));
+		workersButton.setIcon(new ImageIcon("Image\\Workers\\Workers.png"));
 		workersButton.setBounds(20, 100, 350, 200);
 		workersButton.addActionListener(this);
 

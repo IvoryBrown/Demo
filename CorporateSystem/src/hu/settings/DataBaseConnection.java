@@ -17,7 +17,7 @@ public class DataBaseConnection {
 	public DataBaseConnection() {
 		Connection conn = null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(JDBC_DRIVER);
 			subtitle = new JLabel("Csatlakozás... ", JLabel.CENTER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			conn.close();
