@@ -9,16 +9,21 @@ public class WorkersConfig {
 	private String exit_date;
 	private String home_address;
 	private String id_card;
-	private int tax_card;
-	private int social_security_card;
+	private Integer tax_card;
+	private Integer social_security_card;
 	private byte[] picture;
 
-	public WorkersConfig(int wId, String wName, float wIdentification, String wAddDate, String wExitDate, byte[] wImgage) {
+	public WorkersConfig(Integer wId, String wName, float wIdentification, String wAddDate, String wExitDate,
+			String wHomeAddress, String wIdCard, Integer wTaxCard, Integer wSocialSecurityCard, byte[] wImgage) {
 		this.id = wId;
 		this.name = wName;
 		this.identification = wIdentification;
 		this.entry_date = wAddDate;
 		this.exit_date = wExitDate;
+		this.home_address = wHomeAddress;
+		this.id_card = wIdCard;
+		this.tax_card = wTaxCard;
+		this.social_security_card = wSocialSecurityCard;
 		this.picture = wImgage;
 	}
 
@@ -42,19 +47,19 @@ public class WorkersConfig {
 		return exit_date;
 	}
 
-	public String getHome_address() {
+	public String getHomeAddress() {
 		return home_address;
 	}
 
-	public String getId_card() {
+	public String getIdCard() {
 		return id_card;
 	}
 
-	public int getTax_card() {
+	public int getTaxCard() {
 		return tax_card;
 	}
 
-	public int getSocial_security_card() {
+	public int getSocialSecurityCard() {
 		return social_security_card;
 	}
 

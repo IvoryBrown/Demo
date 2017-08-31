@@ -27,6 +27,8 @@ import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class WorkersSwing extends javax.swing.JFrame {
 	private javax.swing.JButton Btn_Choose_Image;
@@ -44,6 +46,14 @@ public class WorkersSwing extends javax.swing.JFrame {
 	private javax.swing.JLabel jLabelAzonosito;
 	private javax.swing.JLabel jLabelBelepes;
 	private javax.swing.JLabel jLabelKilepes;
+	private javax.swing.JTextField txt_HomeAddress;
+	private javax.swing.JLabel lblLakcm;
+	private javax.swing.JTextField txt_SigCard;
+	private javax.swing.JLabel lblSzemlyIgazolvny;
+	private javax.swing.JTextField txt_TaxCard;
+	private javax.swing.JTextField txt_SocialSecurityCard;
+	private javax.swing.JLabel lblAdoszm;
+	private javax.swing.JLabel lblTajszm;
 	private javax.swing.JLabel jLabelFenykep;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JScrollPane jScrollPane1;
@@ -85,7 +95,8 @@ public class WorkersSwing extends javax.swing.JFrame {
 
 	public boolean checkInputs() {
 		if (txt_name.getText() == null || txt_identification.getText() == null || txt_AddDate.getDate() == null
-				|| txt_ExitDate.getDate() == null) {
+				|| txt_ExitDate.getDate() == null || txt_HomeAddress.getText() == null || txt_SigCard.getText() == null
+				|| txt_TaxCard.getText() == null || txt_SocialSecurityCard.getText() == null) {
 			return false;
 		} else {
 			try {
@@ -124,7 +135,8 @@ public class WorkersSwing extends javax.swing.JFrame {
 			while (rs.next()) {
 				product = new WorkersConfig(rs.getInt("id"), rs.getString("name"),
 						Float.parseFloat(rs.getString("identification")), rs.getString("entry_date"),
-						rs.getString("exit_date"), rs.getBytes("image"));
+						rs.getString("exit_date"), rs.getString("home_address"), rs.getString("id_card"),
+						rs.getInt("tax_card"), rs.getInt("social_security_card"), rs.getBytes("image"));
 				productList.add(product);
 			}
 
@@ -138,13 +150,17 @@ public class WorkersSwing extends javax.swing.JFrame {
 		ArrayList<WorkersConfig> list = getProductList();
 		DefaultTableModel model = (DefaultTableModel) JTable_Products.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[5];
+		Object[] row = new Object[9];
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getId();
 			row[1] = list.get(i).getName();
 			row[2] = list.get(i).getIdentification();
 			row[3] = list.get(i).getAddDate();
 			row[4] = list.get(i).getExitDate();
+			row[5] = list.get(i).getHomeAddress();
+			row[6] = list.get(i).getIdCard();
+			row[7] = list.get(i).getTaxCard();
+			row[8] = list.get(i).getSocialSecurityCard();
 			model.addRow(row);
 		}
 	}
@@ -179,6 +195,14 @@ public class WorkersSwing extends javax.swing.JFrame {
 		txt_identification = new javax.swing.JTextField();
 		txt_AddDate = new com.toedter.calendar.JDateChooser();
 		txt_ExitDate = new com.toedter.calendar.JDateChooser();
+		txt_HomeAddress = new JTextField();
+		lblLakcm = new JLabel();
+		txt_SigCard = new JTextField();
+		lblSzemlyIgazolvny = new JLabel();
+		txt_TaxCard = new JTextField();
+		txt_SocialSecurityCard = new JTextField();
+		lblAdoszm = new JLabel();
+		lblTajszm = new JLabel();
 		lbl_image = new javax.swing.JLabel();
 		lbl_image.setEnabled(false);
 		jScrollPane1 = new javax.swing.JScrollPane();
@@ -235,9 +259,34 @@ public class WorkersSwing extends javax.swing.JFrame {
 		lbl_image.setBackground(new java.awt.Color(204, 255, 255));
 		lbl_image.setOpaque(true);
 
+		txt_HomeAddress.setPreferredSize(new Dimension(59, 50));
+		txt_HomeAddress.setFont(new Font("Tahoma", Font.BOLD, 14));
+
+		lblLakcm.setText("Lakcím:");
+		lblLakcm.setFont(new Font("Tahoma", Font.BOLD, 18));
+
+		txt_SigCard.setPreferredSize(new Dimension(59, 50));
+		txt_SigCard.setFont(new Font("Tahoma", Font.BOLD, 14));
+
+		lblSzemlyIgazolvny.setText("Szig. Szám:");
+		lblSzemlyIgazolvny.setFont(new Font("Tahoma", Font.BOLD, 18));
+
+		txt_TaxCard.setPreferredSize(new Dimension(59, 50));
+		txt_TaxCard.setFont(new Font("Tahoma", Font.BOLD, 14));
+
+		txt_SocialSecurityCard.setPreferredSize(new Dimension(59, 50));
+		txt_SocialSecurityCard.setFont(new Font("Tahoma", Font.BOLD, 14));
+
+		lblAdoszm.setText("Adoszám:");
+		lblAdoszm.setFont(new Font("Tahoma", Font.BOLD, 18));
+
+		lblTajszm.setText("Tajszám:");
+		lblTajszm.setFont(new Font("Tahoma", Font.BOLD, 18));
+
 		JTable_Products.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-		}, new String[] { "ID", "Név", "Azonosító", "Belépés", "Kilépés", "Lakcím", "Sig", "Adószám", "Tajszám" }));
+		}, new String[] { "ID", "Név", "Azonosító", "Belépés", "Kilépés", "Lakcím", "Szig. Szám", "Adószám",
+				"Tajszám" }));
 		JTable_Products.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClicked(evt);
@@ -338,39 +387,42 @@ public class WorkersSwing extends javax.swing.JFrame {
 				layout.createSequentialGroup().addContainerGap().addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 711,
 						Short.MAX_VALUE)));
 		getContentPane().setLayout(layout);
+
 		GroupLayout gl_jPanel1 = new GroupLayout(jPanel1);
 		gl_jPanel1.setHorizontalGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addGroup(gl_jPanel1
 				.createSequentialGroup().addGap(33)
 				.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addComponent(jLabelFenykep)
-						.addComponent(jLabelID).addComponent(jLabelNev).addComponent(jLabelBelepes)
-						.addComponent(jLabelAzonosito)
-						.addComponent(jLabelKilepes, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
+						.addComponent(jLabelID).addComponent(jLabelNev).addComponent(jLabelAzonosito)
+						.addComponent(lblLakcm).addComponent(lblAdoszm).addComponent(lblSzemlyIgazolvny)
+						.addComponent(jLabelBelepes).addComponent(jLabelKilepes)
+						.addComponent(lblTajszm, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
 				.addGap(10)
-				.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addGroup(gl_jPanel1.createSequentialGroup()
+				.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addGroup(gl_jPanel1.createSequentialGroup()
 						.addComponent(Btn_Choose_Image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE).addComponent(jButtonInsert)
 						.addGap(60).addComponent(jButtonUpdate).addGap(41).addComponent(jButtonDelete).addGap(51)
 						.addComponent(Btn_First).addGap(43).addComponent(Btn_Next).addGap(18).addComponent(Btn_Previous)
 						.addGap(51).addComponent(Btn_Last, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
 						.addGap(32))
-						.addGroup(Alignment.LEADING, gl_jPanel1.createSequentialGroup().addGroup(gl_jPanel1
+						.addGroup(gl_jPanel1.createSequentialGroup().addGroup(gl_jPanel1
 								.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_jPanel1.createSequentialGroup().addGroup(gl_jPanel1
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(lbl_image, GroupLayout.PREFERRED_SIZE, 227,
-												GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING, false)
-												.addComponent(txt_id, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(txt_name, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-														125, Short.MAX_VALUE)))
-										.addGap(55))
+								.addComponent(lbl_image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(txt_id, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(txt_name, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 125,
+												Short.MAX_VALUE))
 								.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 125,
 										GroupLayout.PREFERRED_SIZE)
 								.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 125,
+								.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txt_HomeAddress, GroupLayout.PREFERRED_SIZE, 125,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 125,
 										GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
 								.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 836, GroupLayout.PREFERRED_SIZE)
 								.addContainerGap()))));
 		gl_jPanel1
@@ -400,8 +452,33 @@ public class WorkersSwing extends javax.swing.JFrame {
 												.addComponent(jLabelBelepes))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-												.addComponent(jLabelKilepes).addComponent(txt_ExitDate,
-														GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
+												.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 29,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLabelKilepes))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblLakcm, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_HomeAddress, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblSzemlyIgazolvny, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblAdoszm, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblTajszm, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)))
 								.addGroup(gl_jPanel1.createSequentialGroup().addContainerGap().addComponent(
 										jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 										GroupLayout.PREFERRED_SIZE)))
