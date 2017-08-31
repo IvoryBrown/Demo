@@ -2,20 +2,24 @@ package hu.swing.workers;
 
 public class WorkersConfig {
 
-	private int id;
+	private Integer id;
 	private String name;
 	private float identification;
 	private String entry_date;
 	private String exit_date;
+	private String home_address;
+	private String id_card;
+	private int tax_card;
+	private int social_security_card;
 	private byte[] picture;
 
-	public WorkersConfig(int pid, String pname, float pidentification, String pAddDate, String pExitDate, byte[] pimg) {
-		this.id = pid;
-		this.name = pname;
-		this.identification = pidentification;
-		this.entry_date = pAddDate;
-		this.exit_date = pExitDate;
-		this.picture = pimg;
+	public WorkersConfig(int wId, String wName, float wIdentification, String wAddDate, String wExitDate, byte[] wImgage) {
+		this.id = wId;
+		this.name = wName;
+		this.identification = wIdentification;
+		this.entry_date = wAddDate;
+		this.exit_date = wExitDate;
+		this.picture = wImgage;
 	}
 
 	public int getId() {
@@ -36,6 +40,22 @@ public class WorkersConfig {
 
 	public String getExitDate() {
 		return exit_date;
+	}
+
+	public String getHome_address() {
+		return home_address;
+	}
+
+	public String getId_card() {
+		return id_card;
+	}
+
+	public int getTax_card() {
+		return tax_card;
+	}
+
+	public int getSocial_security_card() {
+		return social_security_card;
 	}
 
 	public byte[] getImage() {

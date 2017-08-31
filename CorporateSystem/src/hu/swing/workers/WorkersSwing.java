@@ -58,14 +58,14 @@ public class WorkersSwing extends javax.swing.JFrame {
 	static final String DB_URL = "jdbc:mysql://localhost/zrt";
 	static final String USER = "root";
 	static final String PASS = "12345";
+	String ImgPath = null;
+	int pos = 0;
 
 	public WorkersSwing() {
+
 		initComponents();
 		Show_Products_In_JTable();
 	}
-
-	String ImgPath = null;
-	int pos = 0;
 
 	public Connection getConnection() {
 		Connection con = null;
@@ -180,6 +180,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 		txt_AddDate = new com.toedter.calendar.JDateChooser();
 		txt_ExitDate = new com.toedter.calendar.JDateChooser();
 		lbl_image = new javax.swing.JLabel();
+		lbl_image.setEnabled(false);
 		jScrollPane1 = new javax.swing.JScrollPane();
 		JTable_Products = new javax.swing.JTable();
 		Btn_Choose_Image = new javax.swing.JButton();
@@ -191,6 +192,8 @@ public class WorkersSwing extends javax.swing.JFrame {
 		Btn_Last = new javax.swing.JButton();
 		Btn_Next = new javax.swing.JButton();
 
+		getContentPane().setLayout(null);
+		this.setPreferredSize(new Dimension(1300, 750));
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
 		jPanel1.setBackground(new java.awt.Color(255, 255, 204));
@@ -234,7 +237,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 
 		JTable_Products.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-		}, new String[] { "ID", "Név", "Azonosító", "Belépés", "Kilépés" }));
+		}, new String[] { "ID", "Név", "Azonosító", "Belépés", "Kilépés", "Lakcím", "Sig", "Adószám", "Tajszám" }));
 		JTable_Products.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClicked(evt);
@@ -327,148 +330,99 @@ public class WorkersSwing extends javax.swing.JFrame {
 				Btn_NextActionPerformed(evt);
 			}
 		});
-
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-		jPanel1Layout
-				.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+				layout.createSequentialGroup().addContainerGap().addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 1284,
+						Short.MAX_VALUE)));
+		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+				layout.createSequentialGroup().addContainerGap().addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 711,
+						Short.MAX_VALUE)));
+		getContentPane().setLayout(layout);
+		GroupLayout gl_jPanel1 = new GroupLayout(jPanel1);
+		gl_jPanel1.setHorizontalGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addGroup(gl_jPanel1
+				.createSequentialGroup().addGap(33)
+				.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addComponent(jLabelFenykep)
+						.addComponent(jLabelID).addComponent(jLabelNev).addComponent(jLabelBelepes)
+						.addComponent(jLabelAzonosito)
+						.addComponent(jLabelKilepes, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
+				.addGap(10)
+				.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addGroup(gl_jPanel1.createSequentialGroup()
+						.addComponent(Btn_Choose_Image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE).addComponent(jButtonInsert)
+						.addGap(60).addComponent(jButtonUpdate).addGap(41).addComponent(jButtonDelete).addGap(51)
+						.addComponent(Btn_First).addGap(43).addComponent(Btn_Next).addGap(18).addComponent(Btn_Previous)
+						.addGap(51).addComponent(Btn_Last, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+						.addGap(32))
+						.addGroup(Alignment.LEADING, gl_jPanel1.createSequentialGroup().addGroup(gl_jPanel1
+								.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_jPanel1.createSequentialGroup().addGroup(gl_jPanel1
+										.createParallelGroup(Alignment.LEADING)
+										.addComponent(lbl_image, GroupLayout.PREFERRED_SIZE, 227,
+												GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(txt_id, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(txt_name, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+														125, Short.MAX_VALUE)))
+										.addGap(55))
+								.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 125,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 125,
+										GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+								.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 836, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap()))));
+		gl_jPanel1
+				.setVerticalGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addGroup(gl_jPanel1
+						.createSequentialGroup().addGroup(gl_jPanel1
 								.createParallelGroup(
 										Alignment.LEADING)
-								.addGroup(jPanel1Layout.createSequentialGroup().addGap(33)
-										.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(jLabelBelepes).addComponent(jLabelID)
-												.addComponent(jLabelNev).addComponent(jLabelAzonosito)
-												.addComponent(jLabelFenykep).addComponent(jLabelKilepes,
-														GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(Alignment.LEADING).addGroup(
-																jPanel1Layout
-																		.createSequentialGroup()
-																		.addGroup(jPanel1Layout
-																				.createParallelGroup(Alignment.LEADING)
-																				.addComponent(Btn_Choose_Image,
-																						GroupLayout.DEFAULT_SIZE, 227,
-																						Short.MAX_VALUE)
-																				.addComponent(
-																						txt_id,
-																						GroupLayout.PREFERRED_SIZE, 109,
-																						GroupLayout.PREFERRED_SIZE)
-																				.addComponent(lbl_image,
-																						GroupLayout.DEFAULT_SIZE, 227,
-																						Short.MAX_VALUE)
-																				.addGroup(jPanel1Layout
-																						.createParallelGroup(
-																								Alignment.TRAILING,
-																								false)
-																						.addComponent(txt_AddDate,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								125, Short.MAX_VALUE)
-																						.addComponent(txt_ExitDate,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								125, Short.MAX_VALUE)
-																						.addComponent(txt_name,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								txt_identification,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								Short.MAX_VALUE)))
-																		.addGap(98))
-														.addGroup(jPanel1Layout.createSequentialGroup()
-																.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE,
-																		125, GroupLayout.PREFERRED_SIZE)
-																.addPreferredGap(ComponentPlacement.RELATED)))
-										.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
-										.addComponent(jButtonInsert).addGap(10).addComponent(jButtonUpdate)
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(jButtonDelete)
-										.addGap(45).addComponent(Btn_First).addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(Btn_Next).addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(Btn_Previous).addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(Btn_Last)))
-								.addContainerGap()));
-		jPanel1Layout
-				.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(jPanel1Layout
-								.createSequentialGroup().addGroup(jPanel1Layout.createParallelGroup(
-										Alignment.LEADING)
-										.addGroup(jPanel1Layout.createSequentialGroup()
-												.addGap(20).addGroup(jPanel1Layout
-														.createParallelGroup(Alignment.LEADING)
-														.addComponent(txt_id, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(jLabelID))
-												.addGap(9)
-												.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-														.addComponent(txt_name, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(jLabelNev))
-												.addGap(14)
-												.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-														.addComponent(jLabelAzonosito).addComponent(txt_identification,
-																GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE))
-												.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel1Layout.createSequentialGroup().addGap(21)
-																.addComponent(jLabelBelepes))
-														.addGroup(jPanel1Layout.createSequentialGroup()
-																.addPreferredGap(ComponentPlacement.UNRELATED)
-																.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE,
-																		41, GroupLayout.PREFERRED_SIZE)))
-												.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-														.addGroup(jPanel1Layout.createSequentialGroup().addGap(18)
-																.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE,
-																		41, GroupLayout.PREFERRED_SIZE))
-														.addGroup(jPanel1Layout.createSequentialGroup().addGap(27)
-																.addComponent(jLabelKilepes, GroupLayout.PREFERRED_SIZE,
-																		22, GroupLayout.PREFERRED_SIZE))))
-										.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap().addComponent(
-												jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)))
-								.addPreferredGap(ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-								.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
-										.addGroup(jPanel1Layout.createSequentialGroup()
-												.addComponent(Btn_Choose_Image, GroupLayout.PREFERRED_SIZE, 36,
+								.addGroup(gl_jPanel1.createSequentialGroup().addGap(20)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_id, GroupLayout.PREFERRED_SIZE, 31,
 														GroupLayout.PREFERRED_SIZE)
-												.addGap(82))
-										.addGroup(jPanel1Layout.createSequentialGroup()
-												.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(jButtonInsert, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(jButtonUpdate, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(jButtonDelete, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(Btn_First, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(Btn_Next, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(Btn_Previous, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(Btn_Last, GroupLayout.PREFERRED_SIZE, 40,
-																GroupLayout.PREFERRED_SIZE))
-												.addContainerGap())))
-						.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap(364, Short.MAX_VALUE)
-								.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-										.addComponent(jLabelFenykep).addComponent(lbl_image, GroupLayout.PREFERRED_SIZE,
-												167, GroupLayout.PREFERRED_SIZE))
-								.addGap(136)));
-		jPanel1.setLayout(jPanel1Layout);
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+												.addComponent(jLabelID))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_name, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLabelNev))
+										.addGap(6)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLabelAzonosito))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLabelBelepes))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(jLabelKilepes).addComponent(txt_ExitDate,
+														GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_jPanel1.createSequentialGroup().addContainerGap().addComponent(
+										jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)))
+						.addPreferredGap(ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+						.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(Btn_Last, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(Btn_Previous, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(Btn_Next, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(Btn_First, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jButtonDelete, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jButtonUpdate, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jButtonInsert, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(Btn_Choose_Image, GroupLayout.PREFERRED_SIZE, 36,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(42))
+						.addGroup(gl_jPanel1.createSequentialGroup().addContainerGap(445, Short.MAX_VALUE)
+								.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addComponent(jLabelFenykep)
+										.addComponent(lbl_image, GroupLayout.PREFERRED_SIZE, 167,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(88)));
+		jPanel1.setLayout(gl_jPanel1);
 
 		pack();
 	}
