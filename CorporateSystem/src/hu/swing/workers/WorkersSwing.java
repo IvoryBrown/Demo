@@ -27,43 +27,19 @@ import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class WorkersSwing extends javax.swing.JFrame {
-	private javax.swing.JButton Btn_Choose_Image;
-	private javax.swing.JButton Btn_First;
-	private javax.swing.JButton jButtonInsert;
-	private javax.swing.JButton Btn_Last;
-	private javax.swing.JButton Btn_Next;
-	private javax.swing.JButton Btn_Previous;
-
+	private javax.swing.JButton jBtn_Choose_Image, jBtn_First, jBtn_Insert, jBtn_Last, jBtn_Next, jBtn_Previous,
+			jBtn_Update, jBtn_Delete;
+	private javax.swing.JLabel jLbl_ID, jLbl_Name, jLbl_identification, jLbl_AddDate, jLbl_ExitDate, jLbl_SigCard,
+			jLbl_HomeAddress, jLbl_TaxCard, jLbl_SocialSecurityCard, jLbl_Choose_Image, jLbl_image;
+	private javax.swing.JTextField txt_HomeAddress, txt_SigCard, txt_TaxCard, txt_SocialSecurityCard, txt_id, txt_name,
+			txt_identification;
+	private com.toedter.calendar.JDateChooser txt_AddDate, txt_ExitDate;
 	private javax.swing.JTable JTable_Products;
-	private javax.swing.JButton jButtonUpdate;
-	private javax.swing.JButton jButtonDelete;
-	private javax.swing.JLabel jLabelID;
-	private javax.swing.JLabel jLabelNev;
-	private javax.swing.JLabel jLabelAzonosito;
-	private javax.swing.JLabel jLabelBelepes;
-	private javax.swing.JLabel jLabelKilepes;
-	private javax.swing.JTextField txt_HomeAddress;
-	private javax.swing.JLabel lblLakcm;
-	private javax.swing.JTextField txt_SigCard;
-	private javax.swing.JLabel lblSzemlyIgazolvny;
-	private javax.swing.JTextField txt_TaxCard;
-	private javax.swing.JTextField txt_SocialSecurityCard;
-	private javax.swing.JLabel lblAdoszm;
-	private javax.swing.JLabel lblTajszm;
-	private javax.swing.JLabel jLabelFenykep;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JLabel lbl_image;
-	private com.toedter.calendar.JDateChooser txt_AddDate;
-	private com.toedter.calendar.JDateChooser txt_ExitDate;
-	private javax.swing.JTextField txt_id;
-	private javax.swing.JTextField txt_name;
-	private javax.swing.JTextField txt_identification;
-
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/zrt";
 	static final String USER = "root";
@@ -72,14 +48,12 @@ public class WorkersSwing extends javax.swing.JFrame {
 	int pos = 0;
 
 	public WorkersSwing() {
-
 		initComponents();
 		Show_Products_In_JTable();
 	}
 
 	public Connection getConnection() {
 		Connection con = null;
-
 		try {
 			Class.forName(JDBC_DRIVER);
 			con = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -116,10 +90,9 @@ public class WorkersSwing extends javax.swing.JFrame {
 			myImage = new ImageIcon(pic);
 		}
 		Image img = myImage.getImage();
-		Image img2 = img.getScaledInstance(lbl_image.getWidth(), lbl_image.getHeight(), Image.SCALE_SMOOTH);
+		Image img2 = img.getScaledInstance(jLbl_image.getWidth(), jLbl_image.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon image = new ImageIcon(img2);
 		return image;
-
 	}
 
 	public ArrayList<WorkersConfig> getProductList() {
@@ -139,7 +112,6 @@ public class WorkersSwing extends javax.swing.JFrame {
 						rs.getInt("tax_card"), rs.getInt("social_security_card"), rs.getBytes("image"));
 				productList.add(product);
 			}
-
 		} catch (SQLException ex) {
 			Logger.getLogger(WorkersSwing.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -179,114 +151,95 @@ public class WorkersSwing extends javax.swing.JFrame {
 		} catch (ParseException ex) {
 			Logger.getLogger(WorkersSwing.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		lbl_image.setIcon(ResizeImage(null, getProductList().get(index).getImage()));
+		txt_HomeAddress.setText(getProductList().get(index).getHomeAddress());
+		txt_SigCard.setText(getProductList().get(index).getIdCard());
+		txt_TaxCard.setText(Integer.toString(getProductList().get(index).getTaxCard()));
+		txt_SocialSecurityCard.setText(Integer.toString(getProductList().get(index).getSocialSecurityCard()));
+		jLbl_image.setIcon(ResizeImage(null, getProductList().get(index).getImage()));
 	}
 
 	private void initComponents() {
-		jPanel1 = new javax.swing.JPanel();
-		jLabelID = new javax.swing.JLabel();
-		jLabelNev = new javax.swing.JLabel();
-		jLabelAzonosito = new javax.swing.JLabel();
-		jLabelBelepes = new javax.swing.JLabel();
-		jLabelKilepes = new javax.swing.JLabel();
-		jLabelFenykep = new javax.swing.JLabel();
+		jBtn_Choose_Image = new javax.swing.JButton();
+		jBtn_Update = new javax.swing.JButton();
+		jBtn_Delete = new javax.swing.JButton();
+		jBtn_Insert = new javax.swing.JButton();
+		jBtn_First = new javax.swing.JButton();
+		jBtn_Previous = new javax.swing.JButton();
+		jBtn_Last = new javax.swing.JButton();
+		jBtn_Next = new javax.swing.JButton();
+		jLbl_ID = new javax.swing.JLabel();
+		jLbl_Name = new javax.swing.JLabel();
+		jLbl_identification = new javax.swing.JLabel();
+		jLbl_AddDate = new javax.swing.JLabel();
+		jLbl_ExitDate = new javax.swing.JLabel();
+		jLbl_Choose_Image = new javax.swing.JLabel();
+		jLbl_image = new javax.swing.JLabel();
+		jLbl_HomeAddress = new javax.swing.JLabel();
+		jLbl_SigCard = new javax.swing.JLabel();
+		jLbl_TaxCard = new javax.swing.JLabel();
+		jLbl_SocialSecurityCard = new javax.swing.JLabel();
 		txt_name = new javax.swing.JTextField();
 		txt_id = new javax.swing.JTextField();
+		txt_HomeAddress = new javax.swing.JTextField();
+		txt_SigCard = new javax.swing.JTextField();
+		txt_TaxCard = new javax.swing.JTextField();
+		txt_SocialSecurityCard = new javax.swing.JTextField();
 		txt_identification = new javax.swing.JTextField();
 		txt_AddDate = new com.toedter.calendar.JDateChooser();
 		txt_ExitDate = new com.toedter.calendar.JDateChooser();
-		txt_HomeAddress = new JTextField();
-		lblLakcm = new JLabel();
-		txt_SigCard = new JTextField();
-		lblSzemlyIgazolvny = new JLabel();
-		txt_TaxCard = new JTextField();
-		txt_SocialSecurityCard = new JTextField();
-		lblAdoszm = new JLabel();
-		lblTajszm = new JLabel();
-		lbl_image = new javax.swing.JLabel();
-		lbl_image.setEnabled(false);
+		jPanel1 = new javax.swing.JPanel();
 		jScrollPane1 = new javax.swing.JScrollPane();
 		JTable_Products = new javax.swing.JTable();
-		Btn_Choose_Image = new javax.swing.JButton();
-		jButtonUpdate = new javax.swing.JButton();
-		jButtonDelete = new javax.swing.JButton();
-		jButtonInsert = new javax.swing.JButton();
-		Btn_First = new javax.swing.JButton();
-		Btn_Previous = new javax.swing.JButton();
-		Btn_Last = new javax.swing.JButton();
-		Btn_Next = new javax.swing.JButton();
 
-		getContentPane().setLayout(null);
 		this.setPreferredSize(new Dimension(1300, 750));
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
 		jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
-		jLabelID.setFont(new java.awt.Font("Tahoma", 1, 18));
-		jLabelID.setText("ID:");
-
-		jLabelNev.setFont(new java.awt.Font("Tahoma", 1, 18));
-		jLabelNev.setText("Név:");
-
-		jLabelAzonosito.setFont(new java.awt.Font("Tahoma", 1, 18));
-		jLabelAzonosito.setText("Azonosító:");
-
-		jLabelBelepes.setFont(new java.awt.Font("Tahoma", 1, 18));
-		jLabelBelepes.setText("Belépés:");
-
-		jLabelKilepes.setFont(new Font("Tahoma", 1, 18));
-		jLabelKilepes.setText("Kilépés:");
-
-		jLabelFenykep.setFont(new java.awt.Font("Tahoma", 1, 18));
-		jLabelFenykep.setText("Fénykép:");
-
-		txt_name.setFont(new java.awt.Font("Tahoma", 1, 14));
-		txt_name.setPreferredSize(new java.awt.Dimension(59, 50));
+		jLbl_ID.setFont(new java.awt.Font("Tahoma", 1, 18));
+		jLbl_ID.setText("ID:");
+		jLbl_Name.setFont(new java.awt.Font("Tahoma", 1, 18));
+		jLbl_Name.setText("Név:");
+		jLbl_identification.setFont(new java.awt.Font("Tahoma", 1, 18));
+		jLbl_identification.setText("Azonosító:");
+		jLbl_AddDate.setFont(new java.awt.Font("Tahoma", 1, 18));
+		jLbl_AddDate.setText("Belépés:");
+		jLbl_ExitDate.setFont(new Font("Tahoma", 1, 18));
+		jLbl_ExitDate.setText("Kilépés:");
+		jLbl_HomeAddress.setFont(new Font("Tahoma", 1, 18));
+		jLbl_HomeAddress.setText("Lakcím:");
+		jLbl_SigCard.setFont(new Font("Tahoma", 1, 18));
+		jLbl_SigCard.setText("Szig. Szám:");
+		jLbl_TaxCard.setFont(new Font("Tahoma", 1, 18));
+		jLbl_TaxCard.setText("Adoszám:");
+		jLbl_SocialSecurityCard.setFont(new Font("Tahoma", 1, 18));
+		jLbl_SocialSecurityCard.setText("Tajszám:");
+		jLbl_Choose_Image.setFont(new java.awt.Font("Tahoma", 1, 18));
+		jLbl_Choose_Image.setText("Fénykép:");
 
 		txt_id.setFont(new java.awt.Font("Tahoma", 1, 14));
 		txt_id.setEnabled(false);
 		txt_id.setPreferredSize(new java.awt.Dimension(59, 50));
-
+		txt_name.setFont(new java.awt.Font("Tahoma", 1, 14));
+		txt_name.setPreferredSize(new java.awt.Dimension(59, 50));
 		txt_identification.setFont(new java.awt.Font("Tahoma", 1, 14));
 		txt_identification.setPreferredSize(new java.awt.Dimension(59, 50));
-
-		txt_AddDate.setDateFormatString("yyyy-MM-dd");
 		txt_AddDate.setFont(new java.awt.Font("Tahoma", 1, 11));
-
-		txt_ExitDate.setDateFormatString("yyyy-MM-dd");
+		txt_AddDate.setDateFormatString("yyyy-MM-dd");
 		txt_ExitDate.setFont(new Font("Tahoma", 1, 11));
-
-		lbl_image.setBackground(new java.awt.Color(204, 255, 255));
-		lbl_image.setOpaque(true);
-
+		txt_ExitDate.setDateFormatString("yyyy-MM-dd");
+		txt_HomeAddress.setFont(new Font("Tahoma", 1, 14));
 		txt_HomeAddress.setPreferredSize(new Dimension(59, 50));
-		txt_HomeAddress.setFont(new Font("Tahoma", Font.BOLD, 14));
-
-		lblLakcm.setText("Lakcím:");
-		lblLakcm.setFont(new Font("Tahoma", Font.BOLD, 18));
-
+		txt_SigCard.setFont(new Font("Tahoma", 1, 14));
 		txt_SigCard.setPreferredSize(new Dimension(59, 50));
-		txt_SigCard.setFont(new Font("Tahoma", Font.BOLD, 14));
-
-		lblSzemlyIgazolvny.setText("Szig. Szám:");
-		lblSzemlyIgazolvny.setFont(new Font("Tahoma", Font.BOLD, 18));
-
+		txt_TaxCard.setFont(new Font("Tahoma", 1, 14));
 		txt_TaxCard.setPreferredSize(new Dimension(59, 50));
-		txt_TaxCard.setFont(new Font("Tahoma", Font.BOLD, 14));
-
+		txt_SocialSecurityCard.setFont(new Font("Tahoma", 1, 14));
 		txt_SocialSecurityCard.setPreferredSize(new Dimension(59, 50));
-		txt_SocialSecurityCard.setFont(new Font("Tahoma", Font.BOLD, 14));
+		jLbl_image.setBackground(new java.awt.Color(204, 255, 255));
+		jLbl_image.setOpaque(true);
 
-		lblAdoszm.setText("Adoszám:");
-		lblAdoszm.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		lblTajszm.setText("Tajszám:");
-		lblTajszm.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		JTable_Products.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-
-		}, new String[] { "ID", "Név", "Azonosító", "Belépés", "Kilépés", "Lakcím", "Szig. Szám", "Adószám",
-				"Tajszám" }));
+		JTable_Products.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {}, new String[] { "ID", "Név",
+				"Azonosító", "Belépés", "Kilépés", "Lakcím", "Szig. Szám", "Adószám", "Tajszám" }));
 		JTable_Products.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				JTable_ProductsMouseClicked(evt);
@@ -294,87 +247,87 @@ public class WorkersSwing extends javax.swing.JFrame {
 		});
 		jScrollPane1.setViewportView(JTable_Products);
 
-		Btn_Choose_Image.setFont(new java.awt.Font("Tahoma", 1, 12));
-		Btn_Choose_Image.setText("Választás");
-		Btn_Choose_Image.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_Choose_Image.setFont(new java.awt.Font("Tahoma", 1, 12));
+		jBtn_Choose_Image.setText("Választás");
+		jBtn_Choose_Image.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Btn_Choose_ImageActionPerformed(evt);
 			}
 		});
 
-		jButtonUpdate.setFont(new java.awt.Font("Tahoma", 1, 14));
+		jBtn_Update.setFont(new java.awt.Font("Tahoma", 1, 14));
 		// jButtonUpdate.setIcon(new
 		// javax.swing.ImageIcon("Image\\Workers\\updatebutton.png"));
-		jButtonUpdate.setText("frissítés");
-		jButtonUpdate.setIconTextGap(15);
-		jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_Update.setText("frissítés");
+		jBtn_Update.setIconTextGap(15);
+		jBtn_Update.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton2ActionPerformed(evt);
 			}
 		});
 
-		jButtonDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+		jBtn_Delete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 		// jButton3.setIcon(new
 		// javax.swing.ImageIcon(getClass().getResource("icons/delete.png")));
-		jButtonDelete.setText("Delete");
-		jButtonDelete.setIconTextGap(15);
-		jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_Delete.setText("Delete");
+		jBtn_Delete.setIconTextGap(15);
+		jBtn_Delete.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton3ActionPerformed(evt);
 			}
 		});
 
-		jButtonInsert.setFont(new java.awt.Font("Tahoma", 1, 14));
+		jBtn_Insert.setFont(new java.awt.Font("Tahoma", 1, 14));
 		// Btn_Insert.setIcon(new
 		// javax.swing.ImageIcon(getClass().getResource("icons/add.png")));
-		jButtonInsert.setText("Új");
-		jButtonInsert.setIconTextGap(15);
-		jButtonInsert.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_Insert.setText("Új");
+		jBtn_Insert.setIconTextGap(15);
+		jBtn_Insert.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Btn_InsertActionPerformed(evt);
 			}
 		});
 
-		Btn_First.setFont(new java.awt.Font("Tahoma", 1, 14));
+		jBtn_First.setFont(new java.awt.Font("Tahoma", 1, 14));
 		// Btn_First.setIcon(new
 		// javax.swing.ImageIcon(getClass().getResource("icons/first.png")));
-		Btn_First.setText("First");
-		Btn_First.setIconTextGap(15);
-		Btn_First.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_First.setText("First");
+		jBtn_First.setIconTextGap(15);
+		jBtn_First.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Btn_FirstActionPerformed(evt);
 			}
 		});
 
-		Btn_Previous.setFont(new java.awt.Font("Tahoma", 1, 14));
+		jBtn_Previous.setFont(new java.awt.Font("Tahoma", 1, 14));
 		// Btn_Previous.setIcon(
 		// new
 		// javax.swing.ImageIcon(getClass().getResource("icons/previous.png")));
-		Btn_Previous.setText("Previous");
-		Btn_Previous.setIconTextGap(15);
-		Btn_Previous.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_Previous.setText("Previous");
+		jBtn_Previous.setIconTextGap(15);
+		jBtn_Previous.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Btn_PreviousActionPerformed(evt);
 			}
 		});
 
-		Btn_Last.setFont(new java.awt.Font("Tahoma", 1, 14));
+		jBtn_Last.setFont(new java.awt.Font("Tahoma", 1, 14));
 		// Btn_Last.setIcon(new
 		// javax.swing.ImageIcon(getClass().getResource("icons/last.png")));
-		Btn_Last.setText("Last");
-		Btn_Last.setIconTextGap(15);
-		Btn_Last.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_Last.setText("Last");
+		jBtn_Last.setIconTextGap(15);
+		jBtn_Last.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Btn_LastActionPerformed(evt);
 			}
 		});
 
-		Btn_Next.setFont(new java.awt.Font("Tahoma", 1, 14));
+		jBtn_Next.setFont(new java.awt.Font("Tahoma", 1, 14));
 		// Btn_Next.setIcon(new
 		// javax.swing.ImageIcon(getClass().getResource("icons/next.png")));
-		Btn_Next.setText("Next");
-		Btn_Next.setIconTextGap(15);
-		Btn_Next.addActionListener(new java.awt.event.ActionListener() {
+		jBtn_Next.setText("Next");
+		jBtn_Next.setIconTextGap(15);
+		jBtn_Next.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				Btn_NextActionPerformed(evt);
 			}
@@ -391,22 +344,16 @@ public class WorkersSwing extends javax.swing.JFrame {
 		GroupLayout gl_jPanel1 = new GroupLayout(jPanel1);
 		gl_jPanel1.setHorizontalGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addGroup(gl_jPanel1
 				.createSequentialGroup().addGap(33)
-				.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addComponent(jLabelFenykep)
-						.addComponent(jLabelID).addComponent(jLabelNev).addComponent(jLabelAzonosito)
-						.addComponent(lblLakcm).addComponent(lblAdoszm).addComponent(lblSzemlyIgazolvny)
-						.addComponent(jLabelBelepes).addComponent(jLabelKilepes)
-						.addComponent(lblTajszm, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addComponent(jLbl_Choose_Image)
+						.addComponent(jLbl_ID).addComponent(jLbl_Name).addComponent(jLbl_identification)
+						.addComponent(jLbl_HomeAddress).addComponent(jLbl_TaxCard).addComponent(jLbl_SigCard)
+						.addComponent(jLbl_AddDate).addComponent(jLbl_ExitDate).addComponent(jLbl_SocialSecurityCard,
+								GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
 				.addGap(10)
-				.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addGroup(gl_jPanel1.createSequentialGroup()
-						.addComponent(Btn_Choose_Image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 93, Short.MAX_VALUE).addComponent(jButtonInsert)
-						.addGap(60).addComponent(jButtonUpdate).addGap(41).addComponent(jButtonDelete).addGap(51)
-						.addComponent(Btn_First).addGap(43).addComponent(Btn_Next).addGap(18).addComponent(Btn_Previous)
-						.addGap(51).addComponent(Btn_Last, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-						.addGap(32))
+				.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+						.addComponent(jLbl_image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_jPanel1.createSequentialGroup().addGroup(gl_jPanel1
 								.createParallelGroup(Alignment.LEADING)
-								.addComponent(lbl_image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(txt_id, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -421,10 +368,37 @@ public class WorkersSwing extends javax.swing.JFrame {
 								.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 125,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Choose_Image, GroupLayout.PREFERRED_SIZE, 227,
 										GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-								.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 836, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap()))));
+								.addGap(18)
+								.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_jPanel1.createSequentialGroup()
+												.addComponent(jBtn_Insert, GroupLayout.PREFERRED_SIZE, 112,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Update, GroupLayout.PREFERRED_SIZE, 108,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Delete, GroupLayout.PREFERRED_SIZE, 108,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+												.addComponent(jBtn_First, GroupLayout.PREFERRED_SIZE, 103,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Next, GroupLayout.PREFERRED_SIZE, 98,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Previous, GroupLayout.PREFERRED_SIZE, 103,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Last, GroupLayout.PREFERRED_SIZE, 116,
+														GroupLayout.PREFERRED_SIZE)
+												.addGap(32))
+										.addGroup(gl_jPanel1
+												.createSequentialGroup().addComponent(jScrollPane1,
+														GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE)
+												.addContainerGap()))))));
 		gl_jPanel1
 				.setVerticalGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addGroup(gl_jPanel1
 						.createSequentialGroup().addGroup(gl_jPanel1
@@ -434,30 +408,30 @@ public class WorkersSwing extends javax.swing.JFrame {
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
 												.addComponent(txt_id, GroupLayout.PREFERRED_SIZE, 31,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabelID))
+												.addComponent(jLbl_ID))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
 												.addComponent(txt_name, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabelNev))
+												.addComponent(jLbl_Name))
 										.addGap(6)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
 												.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabelAzonosito))
+												.addComponent(jLbl_identification))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
 												.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabelBelepes))
+												.addComponent(jLbl_AddDate))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
 												.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 29,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabelKilepes))
+												.addComponent(jLbl_ExitDate))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblLakcm, GroupLayout.PREFERRED_SIZE, 22,
+												.addComponent(jLbl_HomeAddress, GroupLayout.PREFERRED_SIZE, 22,
 														GroupLayout.PREFERRED_SIZE)
 												.addComponent(txt_HomeAddress, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE))
@@ -465,17 +439,17 @@ public class WorkersSwing extends javax.swing.JFrame {
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
 												.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblSzemlyIgazolvny, GroupLayout.PREFERRED_SIZE, 22,
+												.addComponent(jLbl_SigCard, GroupLayout.PREFERRED_SIZE, 22,
 														GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
 												.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblAdoszm, GroupLayout.PREFERRED_SIZE, 22,
+												.addComponent(jLbl_TaxCard, GroupLayout.PREFERRED_SIZE, 22,
 														GroupLayout.PREFERRED_SIZE))
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblTajszm, GroupLayout.PREFERRED_SIZE, 22,
+												.addComponent(jLbl_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 22,
 														GroupLayout.PREFERRED_SIZE)
 												.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 30,
 														GroupLayout.PREFERRED_SIZE)))
@@ -484,43 +458,39 @@ public class WorkersSwing extends javax.swing.JFrame {
 										GroupLayout.PREFERRED_SIZE)))
 						.addPreferredGap(ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
 						.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(Btn_Last, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addComponent(Btn_Previous, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addComponent(Btn_Next, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addComponent(Btn_First, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jButtonDelete, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jButtonUpdate, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jButtonInsert, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addComponent(Btn_Choose_Image, GroupLayout.PREFERRED_SIZE, 36,
-										GroupLayout.PREFERRED_SIZE))
+								.addComponent(jBtn_Last, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Next, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_First, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Choose_Image, GroupLayout.PREFERRED_SIZE, 36,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Previous, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Insert, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Update, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Delete, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
 						.addGap(42))
 						.addGroup(gl_jPanel1.createSequentialGroup().addContainerGap(445, Short.MAX_VALUE)
-								.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addComponent(jLabelFenykep)
-										.addComponent(lbl_image, GroupLayout.PREFERRED_SIZE, 167,
-												GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+										.addComponent(jLbl_Choose_Image).addComponent(jLbl_image,
+												GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
 								.addGap(88)));
 		jPanel1.setLayout(gl_jPanel1);
-
 		pack();
 	}
 
 	private void Btn_Choose_ImageActionPerformed(java.awt.event.ActionEvent evt) {
-
 		JFileChooser file = new JFileChooser();
 		file.setCurrentDirectory(new File(System.getProperty("user.home")));
-
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("*.images", "jpg", "png");
 		file.addChoosableFileFilter(filter);
 		int result = file.showSaveDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = file.getSelectedFile();
 			String path = selectedFile.getAbsolutePath();
-			lbl_image.setIcon(ResizeImage(path, null));
+			jLbl_image.setIcon(ResizeImage(path, null));
 			ImgPath = path;
 		} else {
 			System.out.println("No File Selected");
 		}
-
 	}
 
 	private void Btn_InsertActionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,7 +498,8 @@ public class WorkersSwing extends javax.swing.JFrame {
 			try {
 				Connection con = getConnection();
 				PreparedStatement ps = con.prepareStatement(
-						"INSERT INTO workers(name,identification,entry_date,exit_date,image)" + "values(?,?,?,?,?) ");
+						"INSERT INTO workers(name,identification,entry_date,exit_date,home_address,id_card,tax_card,social_security_card,image)"
+								+ "values(?,?,?,?,?,?,?,?,?) ");
 				ps.setString(1, txt_name.getText());
 				ps.setString(2, txt_identification.getText());
 				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -537,16 +508,20 @@ public class WorkersSwing extends javax.swing.JFrame {
 				SimpleDateFormat exitDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String exitDate = exitDateFormat.format(txt_ExitDate.getDate());
 				ps.setString(4, exitDate);
+				ps.setString(5, txt_HomeAddress.getText());
+				ps.setString(6, txt_SigCard.getText());
+				ps.setString(7, txt_TaxCard.getText());
+				ps.setString(8, txt_SocialSecurityCard.getText());
 				InputStream img = new FileInputStream(new File(ImgPath));
-				ps.setBlob(5, img);
+				ps.setBlob(9, img);
 				ps.executeUpdate();
 				Show_Products_In_JTable();
-				JOptionPane.showMessageDialog(null, "Data Inserted");
+				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null, ex.getMessage());
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "One Or More Field Are Empty");
+			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
 		}
 
 		System.out.println("Name =>" + txt_name.getText());
@@ -562,7 +537,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 			if (ImgPath == null) {
 				try {
 					UpdateQuery = "UPDATE workers SET name = ?, identification = ?"
-							+ ", entry_date = ?, exit_date=? WHERE id = ?";
+							+ ", entry_date = ?, exit_date = ?, home_address = ?, id_card = ?, tax_card = ?, social_security_card = ?, WHERE id = ?";
 					ps = con.prepareStatement(UpdateQuery);
 					ps.setString(1, txt_name.getText());
 					ps.setString(2, txt_identification.getText());
@@ -572,11 +547,14 @@ public class WorkersSwing extends javax.swing.JFrame {
 					String exitDate = exitDateFormat.format(txt_ExitDate.getDate());
 					ps.setString(3, addDate);
 					ps.setString(4, exitDate);
-					ps.setInt(5, Integer.parseInt(txt_id.getText()));
+					ps.setString(5, txt_HomeAddress.getText());
+					ps.setString(6, txt_SigCard.getText());
+					ps.setString(7, txt_TaxCard.getText());
+					ps.setString(8, txt_SocialSecurityCard.getText());
+					ps.setInt(9, Integer.parseInt(txt_id.getText()));
 					ps.executeUpdate();
 					Show_Products_In_JTable();
 					JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
-
 				} catch (SQLException ex) {
 					Logger.getLogger(WorkersSwing.class.getName()).log(Level.SEVERE, null, ex);
 				}
@@ -584,7 +562,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 				try {
 					InputStream img = new FileInputStream(new File(ImgPath));
 					UpdateQuery = "UPDATE workers SET name = ?, identification = ?"
-							+ ", entry_date = ?,exit_date=?, image = ? WHERE id = ?";
+							+ ", entry_date = ?, exit_date = ?, home_address = ?, id_card = ?, tax_card = ?, social_security_card = ?, image = ? WHERE id = ?";
 					ps = con.prepareStatement(UpdateQuery);
 					ps.setString(1, txt_name.getText());
 					ps.setString(2, txt_identification.getText());
@@ -594,8 +572,12 @@ public class WorkersSwing extends javax.swing.JFrame {
 					String exitDate = exitDateFormat.format(txt_ExitDate.getDate());
 					ps.setString(3, addDate);
 					ps.setString(4, exitDate);
-					ps.setBlob(5, img);
-					ps.setInt(6, Integer.parseInt(txt_id.getText()));
+					ps.setString(5, txt_HomeAddress.getText());
+					ps.setString(6, txt_SigCard.getText());
+					ps.setString(7, txt_TaxCard.getText());
+					ps.setString(8, txt_SocialSecurityCard.getText());
+					ps.setBlob(9, img);
+					ps.setInt(10, Integer.parseInt(txt_id.getText()));
 					ps.executeUpdate();
 					Show_Products_In_JTable();
 					JOptionPane.showMessageDialog(null, "Sikeres Frissítés");
@@ -604,7 +586,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty Or Wrong");
+			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres vagy rossz");
 		}
 	}
 
@@ -622,7 +604,6 @@ public class WorkersSwing extends javax.swing.JFrame {
 				Logger.getLogger(WorkersSwing.class.getName()).log(Level.SEVERE, null, ex);
 				JOptionPane.showMessageDialog(null, "Product Not Deleted");
 			}
-
 		} else {
 			JOptionPane.showMessageDialog(null, "Product Not Deleted : No Id To Delete");
 		}
