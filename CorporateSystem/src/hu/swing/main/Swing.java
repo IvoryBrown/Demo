@@ -30,7 +30,7 @@ public class Swing extends JFrame implements ActionListener {
 	
 	@SuppressWarnings("static-access")
 	public Swing() {
-		super("Jdbc");
+		super("CGS");
 		fileMenu = new JMenu("File");
 
 		menu = new JMenuBar();
