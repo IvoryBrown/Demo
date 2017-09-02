@@ -23,14 +23,22 @@ DROP TABLE IF EXISTS `company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `company` (
-  `id_company` int(11) NOT NULL AUTO_INCREMENT,
-  `company_names` varchar(45) COLLATE utf8_hungarian_ci NOT NULL COMMENT 'Ügyfél név',
-  `adress` varchar(45) COLLATE utf8_hungarian_ci NOT NULL COMMENT 'cím',
-  `connection_support` varchar(45) COLLATE utf8_hungarian_ci NOT NULL COMMENT 'Kapcsolat tarto',
-  `phone_number` int(17) NOT NULL,
-  PRIMARY KEY (`id_company`),
-  KEY `company_names_idx` (`company_names`)
-) ENGINE=InnoDB AUTO_INCREMENT=10018245 DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+  `partner_code` int(11) NOT NULL AUTO_INCREMENT,
+  `partner_name` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `company_name` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `country` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `zip_code` int(11) NOT NULL,
+  `city` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `street` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  `house_number` int(11) NOT NULL,
+  `email` varchar(45) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `landline_phone` int(11) DEFAULT NULL,
+  `mobile_phone` int(11) DEFAULT NULL,
+  `account_number` int(11) DEFAULT NULL,
+  `banks_name` varchar(45) COLLATE utf8_hungarian_ci DEFAULT NULL,
+  `administrator_name` varchar(45) COLLATE utf8_hungarian_ci NOT NULL,
+  PRIMARY KEY (`partner_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +47,6 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (10018243,'Zala Kft','Budapest','Ábrahán Tamás',204523451),(10018244,'Hihi Zrt','Miskolc','Legyel László',301278421);
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-01 11:11:11
+-- Dump completed on 2017-09-02  0:56:45

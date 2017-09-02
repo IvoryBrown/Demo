@@ -12,7 +12,7 @@ public class DataBaseConnection {
 	static final String DB_URL = "jdbc:mysql://localhost/zrt";
 	static final String USER = "root";
 	static final String PASS = "12345";
-	public JLabel subtitle;
+	private JLabel subtitle;
 
 	public DataBaseConnection() {
 		Connection conn = null;
@@ -36,5 +36,12 @@ public class DataBaseConnection {
 				se.printStackTrace();
 			}
 		}
+	}
+	public JLabel getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(JLabel subtitle) {
+		this.subtitle = subtitle;
 	}
 }

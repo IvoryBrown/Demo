@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 
 import hu.settings.CenterWindow;
 import hu.settings.DataBaseConnection;
+import hu.swing.company.CompanySwing;
 import hu.swing.workers.WorkersSwing;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class Swing extends JFrame implements ActionListener {
@@ -22,50 +24,64 @@ public class Swing extends JFrame implements ActionListener {
 	private JMenu fileMenu;
 	private JMenuItem exitItem;
 	private JPanel panel;
-	private JButton workersButton;
+	private JButton jBtnWorkers, jBtnCompany, jBtnOrders;
 	private JButton connectButton;
 	private JMenuItem workersItem;
 	DataBaseConnection dataBase = new DataBaseConnection();
-	WorkersSwing workersSwing = new WorkersSwing();
-	
+
 	@SuppressWarnings("static-access")
 	public Swing() {
 		super("CGS");
+
 		fileMenu = new JMenu("File");
+		fileMenu.setIcon(new ImageIcon(Swing.class.getResource("/javax/swing/plaf/metal/icons/ocean/menu.gif")));
 
 		menu = new JMenuBar();
 		menu.add(fileMenu);
 
 		exitItem = new JMenuItem("Kilépés");
+		exitItem.setIcon(
+				new ImageIcon(Swing.class.getResource("/javax/swing/plaf/metal/icons/ocean/close-pressed.gif")));
 		exitItem.addActionListener(this);
 
 		workersItem = new JMenuItem("Dolgozok");
 		workersItem.addActionListener(this);
 
 		panel = new JPanel();
-		panel.add(dataBase.subtitle);
-		panel.setBounds(10, 650, 1050, 25);
-		panel.setBackground(Color.white);
+		panel.add(dataBase.getSubtitle());
+		panel.setBounds(10, 650, 1154, 25);
+		panel.setBackground(new Color(224, 255, 255));
 
-		workersButton = new JButton();
-		workersButton.setIcon(new ImageIcon("Image\\Workers\\Workers.png"));
-		workersButton.setBounds(20, 100, 350, 200);
-		workersButton.addActionListener(this);
+		jBtnWorkers = new JButton("Dolgozok");
+		jBtnWorkers.setBounds(10, 11, 279, 139);
+		jBtnWorkers.addActionListener(this);
+
+		jBtnCompany = new JButton("Megrendelők");
+		jBtnCompany.setBounds(10, 165, 279, 139);
+		jBtnCompany.addActionListener(this);
+
+		jBtnOrders = new JButton();
+		jBtnOrders.setBounds(10, 321, 279, 139);
 
 		connectButton = new JButton("Connect");
-		connectButton.setBounds(1070, 650, 100, 25);
+		connectButton.setBounds(1174, 650, 100, 25);
 		connectButton.addActionListener(this);
 
 		fileMenu.add(workersItem);
 		fileMenu.add(exitItem);
 
-		this.setLayout(null);
-		this.setSize(1200, 750);
+		this.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(Swing.class.getResource("/javax/swing/plaf/metal/icons/ocean/computer.gif")));
+		this.getContentPane().setLayout(null);
+		this.getContentPane().setBackground(new Color(176, 224, 230));
+		this.setSize(1300, 750);
 		new CenterWindow().centerWindow(this);
-		this.add(panel);
+		this.getContentPane().add(panel);
 		this.setJMenuBar(menu);
-		this.add(workersButton);
-		this.add(connectButton);
+		this.getContentPane().add(jBtnWorkers);
+		this.getContentPane().add(connectButton);
+		this.getContentPane().add(jBtnCompany);
+		this.getContentPane().add(jBtnOrders);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
@@ -74,9 +90,11 @@ public class Swing extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == exitItem)
 			System.exit(0);
-		if (e.getSource() == workersButton || e.getSource() == workersItem)
-			workersSwing.Start();
+		if (e.getSource() == jBtnWorkers || e.getSource() == workersItem)
+			new WorkersSwing().Start();
 		if (e.getSource() == connectButton)
-			dataBase.subtitle.setText("todo");;
+			dataBase.setSubtitle(null);
+		if (e.getSource() == jBtnCompany)
+			new CompanySwing();
 	}
 }

@@ -70,8 +70,8 @@ public class WorkersSwing extends javax.swing.JFrame {
 
 	public boolean checkInputs() {
 		if (txt_name.getText() == null || txt_identification.getText() == null || txt_AddDate.getDate() == null
-				|| txt_ExitDate.getDate() == null || txt_HomeAddress.getText() == null || txt_SigCard.getText() == null
-				|| txt_TaxCard.getText() == null || txt_SocialSecurityCard.getText() == null) {
+				|| txt_HomeAddress.getText() == null || txt_SigCard.getText() == null || txt_TaxCard.getText() == null
+				|| txt_SocialSecurityCard.getText() == null) {
 			return false;
 		} else {
 			try {
@@ -99,12 +99,12 @@ public class WorkersSwing extends javax.swing.JFrame {
 	public ArrayList<WorkersConfig> getProductList() {
 		ArrayList<WorkersConfig> productList = new ArrayList<WorkersConfig>();
 		Connection con = getConnection();
-		String query = "SELECT * FROM workers";
+		String QUERY = "SELECT * FROM workers";
 		Statement st;
 		ResultSet rs;
 		try {
 			st = con.createStatement();
-			rs = st.executeQuery(query);
+			rs = st.executeQuery(QUERY);
 			WorkersConfig product;
 			while (rs.next()) {
 				product = new WorkersConfig(rs.getInt("id"), rs.getString("name"),
@@ -147,7 +147,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 			Date exitDate = null;
 			addDate = new SimpleDateFormat("yyyy-MM-dd").parse((String) getProductList().get(index).getAddDate());
 			txt_AddDate.setDate(addDate);
-			exitDate = new SimpleDateFormat("yyyy-MM-dd").parse((String) getProductList().get(index).getAddDate());
+			exitDate = new SimpleDateFormat("yyyy-MM-dd").parse((String) getProductList().get(index).getExitDate());
 			txt_ExitDate.setDate(exitDate);
 		} catch (ParseException ex) {
 			Logger.getLogger(WorkersSwing.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,7 +193,6 @@ public class WorkersSwing extends javax.swing.JFrame {
 		JTable_Products = new javax.swing.JTable();
 
 		this.setPreferredSize(new Dimension(1300, 750));
-		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
 		jLbl_ID.setFont(new java.awt.Font("Tahoma", 1, 18));
@@ -343,122 +342,140 @@ public class WorkersSwing extends javax.swing.JFrame {
 		getContentPane().setLayout(layout);
 
 		GroupLayout gl_jPanel1 = new GroupLayout(jPanel1);
-		gl_jPanel1.setHorizontalGroup(
-			gl_jPanel1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_jPanel1.createSequentialGroup()
-					.addGap(33)
-					.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING)
-						.addComponent(jLbl_Choose_Image)
-						.addComponent(jLbl_ID)
-						.addComponent(jLbl_Name)
-						.addComponent(jLbl_identification)
-						.addComponent(jLbl_HomeAddress)
-						.addComponent(jLbl_TaxCard)
-						.addComponent(jLbl_SigCard)
-						.addComponent(jLbl_AddDate)
-						.addComponent(jLbl_ExitDate)
-						.addComponent(jLbl_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
-					.addGap(10)
-					.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+		gl_jPanel1.setHorizontalGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addGroup(gl_jPanel1
+				.createSequentialGroup().addGap(33)
+				.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addComponent(jLbl_Choose_Image)
+						.addComponent(jLbl_ID).addComponent(jLbl_Name).addComponent(jLbl_identification)
+						.addComponent(jLbl_HomeAddress).addComponent(jLbl_TaxCard).addComponent(jLbl_SigCard)
+						.addComponent(jLbl_AddDate).addComponent(jLbl_ExitDate).addComponent(jLbl_SocialSecurityCard,
+								GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
+				.addGap(10)
+				.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
 						.addComponent(jLbl_image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_jPanel1.createSequentialGroup()
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_jPanel1.createSequentialGroup().addGroup(gl_jPanel1
+								.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_jPanel1
+										.createSequentialGroup()
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING).addGroup(gl_jPanel1
+												.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(txt_id, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(txt_name, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+														125, Short.MAX_VALUE))
+												.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 125,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 125,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 125,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_HomeAddress, GroupLayout.PREFERRED_SIZE, 125,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 125,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 125,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 125,
+														GroupLayout.PREFERRED_SIZE))
+										.addGap(120))
 								.addGroup(gl_jPanel1.createSequentialGroup()
-									.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(txt_id, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(txt_name, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-										.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txt_HomeAddress, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
-									.addGap(120))
-								.addGroup(gl_jPanel1.createSequentialGroup()
-									.addComponent(jBtn_Choose_Image, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)))
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_jPanel1.createSequentialGroup()
-									.addComponent(jBtn_Insert, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jBtn_Update, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jBtn_Delete, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-									.addComponent(jBtn_First, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jBtn_Next)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jBtn_Previous, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(jBtn_Last, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-								.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
-							.addContainerGap())))
-		);
-		gl_jPanel1.setVerticalGroup(
-			gl_jPanel1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_jPanel1.createSequentialGroup()
-					.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_jPanel1.createSequentialGroup()
-							.addGap(20)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txt_id, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLbl_ID))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txt_name, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLbl_Name))
-							.addGap(6)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLbl_identification))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-								.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLbl_AddDate))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-								.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLbl_ExitDate))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-								.addComponent(jLbl_HomeAddress, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txt_HomeAddress, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLbl_SigCard, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLbl_TaxCard, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-								.addComponent(jLbl_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_jPanel1.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
-					.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jBtn_Insert, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jBtn_Last, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jBtn_Previous, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jBtn_Next, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jBtn_First, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jBtn_Update, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jBtn_Delete, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jBtn_Choose_Image, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-					.addGap(42))
-				.addGroup(gl_jPanel1.createSequentialGroup()
-					.addContainerGap(445, Short.MAX_VALUE)
-					.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
-						.addComponent(jLbl_Choose_Image)
-						.addComponent(jLbl_image, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
-					.addGap(88))
-		);
+										.addComponent(jBtn_Choose_Image, GroupLayout.PREFERRED_SIZE, 227,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(18)))
+								.addGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_jPanel1.createSequentialGroup()
+												.addComponent(jBtn_Insert, GroupLayout.PREFERRED_SIZE, 112,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Update, GroupLayout.PREFERRED_SIZE, 116,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Delete, GroupLayout.PREFERRED_SIZE, 108,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+												.addComponent(jBtn_First, GroupLayout.PREFERRED_SIZE, 103,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED).addComponent(jBtn_Next)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(jBtn_Previous, GroupLayout.PREFERRED_SIZE, 103,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED).addComponent(jBtn_Last,
+														GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
+										.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
+								.addContainerGap()))));
+		gl_jPanel1
+				.setVerticalGroup(gl_jPanel1.createParallelGroup(Alignment.TRAILING).addGroup(gl_jPanel1
+						.createSequentialGroup().addGroup(gl_jPanel1
+								.createParallelGroup(
+										Alignment.LEADING)
+								.addGroup(gl_jPanel1.createSequentialGroup().addGap(20)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_id, GroupLayout.PREFERRED_SIZE, 31,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLbl_ID))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_name, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLbl_Name))
+										.addGap(6)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_identification, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLbl_identification))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(txt_AddDate, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLbl_AddDate))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(txt_ExitDate, GroupLayout.PREFERRED_SIZE, 29,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLbl_ExitDate))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(jLbl_HomeAddress, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_HomeAddress, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_SigCard, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLbl_SigCard, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txt_TaxCard, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(jLbl_TaxCard, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+												.addComponent(jLbl_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 22,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(txt_SocialSecurityCard, GroupLayout.PREFERRED_SIZE, 30,
+														GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_jPanel1.createSequentialGroup().addContainerGap().addComponent(
+										jScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)))
+						.addPreferredGap(ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+						.addGroup(gl_jPanel1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(jBtn_Insert, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Last, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Previous, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Next, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_First, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Update, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Delete, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jBtn_Choose_Image, GroupLayout.PREFERRED_SIZE, 39,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(42))
+						.addGroup(gl_jPanel1.createSequentialGroup().addContainerGap(445, Short.MAX_VALUE)
+								.addGroup(gl_jPanel1.createParallelGroup(Alignment.LEADING)
+										.addComponent(jLbl_Choose_Image).addComponent(jLbl_image,
+												GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))
+								.addGap(88)));
 		jPanel1.setLayout(gl_jPanel1);
 		pack();
 	}
@@ -483,28 +500,28 @@ public class WorkersSwing extends javax.swing.JFrame {
 		if (checkInputs() && ImgPath != null) {
 			try {
 				Connection con = getConnection();
-				PreparedStatement ps = con.prepareStatement(
+				PreparedStatement INSERTINTO = con.prepareStatement(
 						"INSERT INTO workers(name,identification,entry_date,exit_date,home_address,id_card,tax_card,social_security_card,image)"
 								+ "values(?,?,?,?,?,?,?,?,?) ");
-				ps.setString(1, txt_name.getText());
-				ps.setString(2, txt_identification.getText());
+				INSERTINTO.setString(1, txt_name.getText());
+				INSERTINTO.setString(2, txt_identification.getText());
 				SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String addDate = addDateFormat.format(txt_AddDate.getDate());
-				ps.setString(3, addDate);
+				INSERTINTO.setString(3, addDate);
 				SimpleDateFormat exitDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String exitDate = exitDateFormat.format(txt_ExitDate.getDate());
-				ps.setString(4, exitDate);
-				ps.setString(5, txt_HomeAddress.getText());
-				ps.setString(6, txt_SigCard.getText());
-				ps.setString(7, txt_TaxCard.getText());
-				ps.setString(8, txt_SocialSecurityCard.getText());
+				INSERTINTO.setString(4, exitDate);
+				INSERTINTO.setString(5, txt_HomeAddress.getText());
+				INSERTINTO.setString(6, txt_SigCard.getText());
+				INSERTINTO.setString(7, txt_TaxCard.getText());
+				INSERTINTO.setString(8, txt_SocialSecurityCard.getText());
 				InputStream img = new FileInputStream(new File(ImgPath));
-				ps.setBlob(9, img);
-				ps.executeUpdate();
+				INSERTINTO.setBlob(9, img);
+				INSERTINTO.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
 			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, ex.getMessage());
+				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
@@ -513,18 +530,20 @@ public class WorkersSwing extends javax.swing.JFrame {
 		System.out.println("Name =>" + txt_name.getText());
 		System.out.println("identification => " + txt_identification.getText());
 		System.out.println("Image => " + ImgPath);
+		System.out.println("dateadd => " + txt_AddDate.getDate());
+		System.out.println("dateexit => " + txt_ExitDate.getDate());
 	}
 
 	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
 		if (checkInputs() && txt_id.getText() != null) {
-			String UpdateQuery = null;
+			String UPDATEQUERY = null;
 			PreparedStatement ps = null;
 			Connection con = getConnection();
 			if (ImgPath == null) {
 				try {
-					UpdateQuery = "UPDATE workers SET name = ?, identification = ?"
-							+ ", entry_date = ?, exit_date = ?, home_address = ?, id_card = ?, tax_card = ?, social_security_card = ?, WHERE id = ?";
-					ps = con.prepareStatement(UpdateQuery);
+					UPDATEQUERY = "UPDATE workers SET name = ?, identification = ?"
+							+ ", entry_date = ?, exit_date = ?, home_address = ?, id_card = ?, tax_card = ?, social_security_card = ? WHERE id = ?";
+					ps = con.prepareStatement(UPDATEQUERY);
 					ps.setString(1, txt_name.getText());
 					ps.setString(2, txt_identification.getText());
 					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -547,9 +566,9 @@ public class WorkersSwing extends javax.swing.JFrame {
 			} else {
 				try {
 					InputStream img = new FileInputStream(new File(ImgPath));
-					UpdateQuery = "UPDATE workers SET name = ?, identification = ?"
+					UPDATEQUERY = "UPDATE workers SET name = ?, identification = ?"
 							+ ", entry_date = ?, exit_date = ?, home_address = ?, id_card = ?, tax_card = ?, social_security_card = ?, image = ? WHERE id = ?";
-					ps = con.prepareStatement(UpdateQuery);
+					ps = con.prepareStatement(UPDATEQUERY);
 					ps.setString(1, txt_name.getText());
 					ps.setString(2, txt_identification.getText());
 					SimpleDateFormat addDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -580,10 +599,10 @@ public class WorkersSwing extends javax.swing.JFrame {
 		if (!txt_id.getText().equals("")) {
 			try {
 				Connection con = getConnection();
-				PreparedStatement ps = con.prepareStatement("DELETE FROM workers WHERE id = ?");
+				PreparedStatement DELETE = con.prepareStatement("DELETE FROM workers WHERE id = ?");
 				int id = Integer.parseInt(txt_id.getText());
-				ps.setInt(1, id);
-				ps.executeUpdate();
+				DELETE.setInt(1, id);
+				DELETE.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Sikeres törlés");
 			} catch (SQLException ex) {
@@ -591,7 +610,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(null, "Sikertelen törlés");
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Sikertelen törlés :Nincs ID a törléshez");
+			JOptionPane.showMessageDialog(null, "Sikertelen törlés : Nincs ID a törléshez");
 		}
 	}
 
