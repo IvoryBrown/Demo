@@ -2,6 +2,7 @@ package hu.swing.company;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -31,22 +35,24 @@ public class CompanySwing extends javax.swing.JFrame {
 			txtStreet, txtEmail, txtLandlinePhone, txtMobilPhone, txtAccountNumber, txtBanksName, txtAdministratorName,
 			txtComment, txtSearch, txtPartnerCode;
 	private javax.swing.JButton jBtnNewPartner, jBtnDeletePartner, jBtnBack, jBtnEditor, jBtnSearch, jBtnFirst,
-			jBtnLast, jBtnPrevious, jBtnNext;
+			jBtnLast, jBtnPrevious, jBtnNext, jBtnDelete, btnQueryPartner;
 	private javax.swing.JLabel jLblLabelA, jLblLabelB, jLblLabelC;
 	private javax.swing.JPanel jPanel1;
-	private javax.swing.JTable JTable_Products;
-	private javax.swing.JScrollPane scrollPane_1;
+	private javax.swing.JTable JTable_Products, jTblQuery;
+	private javax.swing.JScrollPane scrollPane_1, jSclPQuery;
 
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/zrt";
 	static final String USER = "root";
 	static final String PASS = "12345";
-	int pos = 0;
+	private int pos = 0;
+	private String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
 	public CompanySwing() {
 		super("Megrendelő");
 		initComponents();
 		Show_Products_In_JTable();
+
 	}
 
 	public Connection getConnection() {
@@ -65,14 +71,13 @@ public class CompanySwing extends javax.swing.JFrame {
 	}
 
 	public boolean checkInputs() {
-		
-		
-		if (txtAccountNumber.getText() == null || txtAdministratorName.getText() == null
-				|| txtBanksName.getText() == null || txtCity.getText() == null || txtComment.getText() == null
-				|| txtCompanyName.getText() == null || txtCountry.getText() == null || txtEmail.getText() == null
-				|| txtHouseNumber.getText() == null || txtLandlinePhone == null || txtMobilPhone.getText() == null
-				|| txtPartnerCode.getText() == null || txtPartnerName.getText() == null || txtStreet.getText() == null
-				|| txtZipCode.getText() == null) {
+		if (txtAccountNumber.getText().trim().isEmpty() || txtAdministratorName.getText().trim().isEmpty()
+				|| txtBanksName.getText().trim().isEmpty() || txtCity.getText().trim().isEmpty()
+				|| txtCompanyName.getText().trim().isEmpty() || txtCountry.getText().trim().isEmpty()
+				|| txtEmail.getText().trim().isEmpty() || txtHouseNumber.getText().trim().isEmpty()
+				|| txtLandlinePhone.getText().trim().isEmpty() || txtMobilPhone.getText().trim().isEmpty()
+				|| txtPartnerCode.getText().trim().isEmpty() || txtPartnerName.getText().trim().isEmpty()
+				|| txtStreet.getText().trim().isEmpty() || txtZipCode.getText().trim().isEmpty()) {
 			return false;
 		} else {
 			try {
@@ -81,7 +86,6 @@ public class CompanySwing extends javax.swing.JFrame {
 				return false;
 			}
 		}
-
 	}
 
 	public ArrayList<CompanyConfig> getProductList() {
@@ -108,27 +112,15 @@ public class CompanySwing extends javax.swing.JFrame {
 		return productList;
 	}
 
+	
+	
 	public void Show_Products_In_JTable() {
 		ArrayList<CompanyConfig> list = getProductList();
 		DefaultTableModel model = (DefaultTableModel) JTable_Products.getModel();
 		model.setRowCount(0);
-		Object[] row = new Object[2];
+		Object[] row = new Object[1];
 		for (int i = 0; i < list.size(); i++) {
-			// row[0] = list.get(i).getId_partner_code();
 			row[0] = list.get(i).getPartner_name();
-			// row[2] = list.get(i).getCompany_name();
-			// row[3] = list.get(i).getCountry();
-			// row[4] = list.get(i).getZip_code();
-			// row[5] = list.get(i).getCity();
-			// row[6] = list.get(i).getStreet();
-			// row[7] = list.get(i).getHouse_number();
-			// row[8] = list.get(i).getEmail();
-			// row[9] = list.get(i).getLandline_phone();
-			// row[10] = list.get(i).getMobile_phone();
-			// row[11] = list.get(i).getAccount_number();
-			// row[12] = list.get(i).getBanks_name();
-			// row[13] = list.get(i).getAdministrator_name();
-			// row[13] = list.get(i).getComment();
 			model.addRow(row);
 		}
 	}
@@ -151,45 +143,78 @@ public class CompanySwing extends javax.swing.JFrame {
 		txtZipCode.setText(Integer.toString(getProductList().get(index).getZip_code()));
 	}
 
-	@SuppressWarnings({ "static-access" })
+	
+	@SuppressWarnings("static-access")
 	private void initComponents() {
-		this.getContentPane().setBackground(new Color(204, 255, 255));
+		this.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(CompanySwing.class.getResource("/javax/swing/plaf/metal/icons/ocean/computer.gif")));
+		this.getContentPane().setBackground(new Color(240, 248, 255));
 		this.setSize(1300, 750);
 		new CenterWindow().centerWindow(this);
 		this.getContentPane().setLayout(null);
 		this.setVisible(true);
-
+		
 		jPanel1 = new javax.swing.JPanel();
 		jPanel1.setBackground(new Color(204, 255, 255));
 
-		jBtnNewPartner = new javax.swing.JButton("Új partner");
+		jBtnNewPartner = new javax.swing.JButton("");
+		jBtnNewPartner.setIcon(new ImageIcon("F:\\Programozás\\Vállalat#\\PNG\\Button Add-01.png"));
 		jBtnNewPartner.setBounds(1175, 11, 99, 34);
 		this.getContentPane().add(jBtnNewPartner);
 		jBtnNewPartner.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				Btn_InsertActionPerformed(evt);
+				jBtnInsertActionPerformed(evt);
 			}
 		});
 
-		jBtnDeletePartner = new javax.swing.JButton("Törlés");
+		jBtnDeletePartner = new javax.swing.JButton("");
+		jBtnDeletePartner.setIcon(new ImageIcon("F:\\Programozás\\Vállalat#\\PNG\\Button Delete-01.png"));
 		jBtnDeletePartner.setBounds(1175, 56, 99, 34);
 		this.getContentPane().add(jBtnDeletePartner);
 		jBtnDeletePartner.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton3ActionPerformed(evt);
+				int res = JOptionPane.showConfirmDialog(null, "Biztos törölni szeretnéd?", "Figyelmeztetés",
+						JOptionPane.YES_NO_OPTION);
+				if (res == JOptionPane.YES_OPTION)
+					jBtnDeleteActionPerformed(evt);
+				else
+					return;
+			}
+		});
+
+		btnQueryPartner = new JButton("Lekrdezés");
+		btnQueryPartner.setBounds(1175, 101, 99, 34);
+		getContentPane().add(btnQueryPartner);
+		btnQueryPartner.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Btn_QueryActionPerformed(evt);
 			}
 		});
 
 		jBtnBack = new javax.swing.JButton("Vissza");
 		jBtnBack.setBounds(1175, 666, 99, 34);
 		this.getContentPane().add(jBtnBack);
+		jBtnBack.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Btn_BackActionPerformed(evt);
+			}
+		});
 
 		jBtnEditor = new javax.swing.JButton("Szerkesztés");
 		jBtnEditor.setBounds(1044, 56, 112, 34);
 		this.getContentPane().add(jBtnEditor);
 		jBtnEditor.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton2ActionPerformed(evt);
+				jBtnUpdateActionPerformed(evt);
+			}
+		});
+
+		jBtnDelete = new JButton("Törlés");
+		jBtnDelete.setBounds(1044, 104, 112, 34);
+		getContentPane().add(jBtnDelete);
+		jBtnDelete.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				Btn_DeleteActionPerformed(evt);
 			}
 		});
 
@@ -372,7 +397,7 @@ public class CompanySwing extends javax.swing.JFrame {
 		txtEmail.setBounds(657, 245, 362, 20);
 		this.getContentPane().add(txtEmail);
 
-		txtLandlinePhone = new javax.swing.JTextField();
+		txtLandlinePhone = new javax.swing.JTextField("+0");
 		txtLandlinePhone.setColumns(10);
 		txtLandlinePhone.setBounds(657, 280, 362, 20);
 		this.getContentPane().add(txtLandlinePhone);
@@ -428,8 +453,8 @@ public class CompanySwing extends javax.swing.JFrame {
 		scrollPane_1.setViewportView(JTable_Products);
 	}
 
-	private void Btn_InsertActionPerformed(java.awt.event.ActionEvent evt) {
-		if (checkInputs() == true) {
+	private void jBtnInsertActionPerformed(java.awt.event.ActionEvent evt) {
+		if (checkInputs()) {
 			try {
 				Connection con = getConnection();
 				PreparedStatement INSERTINTO = con.prepareStatement(
@@ -444,7 +469,12 @@ public class CompanySwing extends javax.swing.JFrame {
 				INSERTINTO.setString(6, txtCity.getText());
 				INSERTINTO.setString(7, txtStreet.getText());
 				INSERTINTO.setString(8, txtHouseNumber.getText());
-				INSERTINTO.setString(9, txtEmail.getText());
+				Boolean b = txtEmail.getText().matches(EMAIL_REGEX);
+				if (b) {
+					INSERTINTO.setString(9, txtEmail.getText());
+				} else {
+					JOptionPane.showMessageDialog(null, "Nem megfelelő email cím");
+				}
 				INSERTINTO.setString(10, txtLandlinePhone.getText());
 				INSERTINTO.setString(11, txtMobilPhone.getText());
 				INSERTINTO.setString(12, txtAccountNumber.getText());
@@ -454,34 +484,15 @@ public class CompanySwing extends javax.swing.JFrame {
 				INSERTINTO.executeUpdate();
 				Show_Products_In_JTable();
 				JOptionPane.showMessageDialog(null, "Adatok beillesztve");
-			} catch (Exception ex) {
+			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(null, "Sikertelen beillesztés: " + ex.getMessage());
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Egy vagy több mező üres");
 		}
-
-		System.out.println("1 =>" + txtPartnerCode.getText());
-		System.out.println("2 =>" + txtPartnerName.getText());
-		System.out.println("3 =>" + txtCompanyName.getText());
-		System.out.println("4 =>" + txtCountry.getText());
-		System.out.println("5 =>" + txtZipCode.getText());
-		System.out.println("6 =>" + txtCity.getText());
-		System.out.println("7 =>" + txtStreet.getText());
-		System.out.println("8 =>" + txtHouseNumber.getText());
-		System.out.println("9 =>" + txtEmail.getText());
-		System.out.println("10 =>" + txtLandlinePhone.getText());
-		System.out.println("11 =>" + txtMobilPhone.getText());
-		System.out.println("12 =>" + txtAccountNumber.getText());
-		System.out.println("13 =>" + txtBanksName.getText());
-		System.out.println("14 =>" + txtAdministratorName.getText());
-		System.out.println("15 =>" + txtComment.getText());
-
-		System.out.println("Csekk=>: " + checkInputs());
-
 	}
 
-	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+	private void jBtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
 		if (checkInputs() && txtPartnerCode.getText() != null) {
 			String UPDATEQUERY = null;
 			PreparedStatement ps = null;
@@ -501,7 +512,12 @@ public class CompanySwing extends javax.swing.JFrame {
 					ps.setString(6, txtCity.getText());
 					ps.setString(7, txtStreet.getText());
 					ps.setString(8, txtHouseNumber.getText());
-					ps.setString(9, txtEmail.getText());
+					Boolean b = txtEmail.getText().matches(EMAIL_REGEX);
+					if (b) {
+						ps.setString(9, txtEmail.getText());
+					} else {
+						JOptionPane.showMessageDialog(null, "Nem megfelelő email cím");
+					}
 					ps.setString(10, txtLandlinePhone.getText());
 					ps.setString(11, txtMobilPhone.getText());
 					ps.setString(12, txtAccountNumber.getText());
@@ -530,7 +546,12 @@ public class CompanySwing extends javax.swing.JFrame {
 					ps.setString(6, txtCity.getText());
 					ps.setString(7, txtStreet.getText());
 					ps.setString(8, txtHouseNumber.getText());
-					ps.setString(9, txtEmail.getText());
+					Boolean b = txtEmail.getText().matches(EMAIL_REGEX);
+					if (b) {
+						ps.setString(9, txtEmail.getText());
+					} else {
+						JOptionPane.showMessageDialog(null, "Nem megfelelő email cím");
+					}
 					ps.setString(10, txtLandlinePhone.getText());
 					ps.setString(11, txtMobilPhone.getText());
 					ps.setString(12, txtAccountNumber.getText());
@@ -549,7 +570,7 @@ public class CompanySwing extends javax.swing.JFrame {
 		}
 	}
 
-	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+	private void jBtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
 		if (!txtPartnerCode.getText().equals("")) {
 			try {
 				Connection con = getConnection();
@@ -571,6 +592,74 @@ public class CompanySwing extends javax.swing.JFrame {
 	private void JTable_ProductsMouseClicked(java.awt.event.MouseEvent evt) {
 		int index = JTable_Products.getSelectedRow();
 		ShowItem(index);
+	}
+
+	private void Btn_BackActionPerformed(java.awt.event.ActionEvent evt) {
+		this.dispose();
+
+	}
+
+	private void Btn_DeleteActionPerformed(java.awt.event.ActionEvent evt) {
+		txtAccountNumber.setText(null);
+		txtBanksName.setText(null);
+		txtAdministratorName.setText(null);
+		txtBanksName.setText(null);
+		txtCity.setText(null);
+		txtComment.setText(null);
+		txtCompanyName.setText(null);
+		txtCountry.setText(null);
+		txtEmail.setText(null);
+		txtHouseNumber.setText(null);
+		txtLandlinePhone.setText("+0");
+		txtMobilPhone.setText(null);
+		txtPartnerCode.setText(null);
+		txtPartnerName.setText(null);
+		txtStreet.setText(null);
+		txtZipCode.setText(null);
+	}
+
+	private void Btn_QueryActionPerformed(java.awt.event.ActionEvent evt) {
+		JFrame jFrame = new JFrame();
+		jFrame.getContentPane().setBackground(new Color(204, 255, 255));
+		jFrame.setSize(1300, 750);
+		jFrame.getContentPane().setLayout(null);
+		jFrame.setVisible(true);
+
+		jSclPQuery = new javax.swing.JScrollPane();
+		jSclPQuery.setBounds(0, 0, 1284, 711);
+		jFrame.getContentPane().add(jSclPQuery);
+
+		jTblQuery = new javax.swing.JTable();
+		jTblQuery.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {},
+				new String[] { "Partner Kód", "Partner", "Megrendelő", "Irányítószám", "Ország", "Város", "Utca", "Ház",
+						"Email", "Vezetékes telefon", "Mobil", "Számlaszám", "Bank", "Ügyintéző", "Komment" }));
+		jSclPQuery.setViewportView(jTblQuery);
+		QueryProducts_In_JTable();
+	}
+
+	public void QueryProducts_In_JTable() {
+		ArrayList<CompanyConfig> list = getProductList();
+		DefaultTableModel model = (DefaultTableModel) jTblQuery.getModel();
+		model.setRowCount(0);
+		Object[] row = new Object[15];
+		for (int i = 0; i < list.size(); i++) {
+			row[0] = list.get(i).getId_partner_code();
+			row[1] = list.get(i).getPartner_name();
+			row[2] = list.get(i).getCompany_name();
+			row[3] = list.get(i).getCountry();
+			row[4] = list.get(i).getZip_code();
+			row[5] = list.get(i).getCity();
+			row[6] = list.get(i).getStreet();
+			row[7] = list.get(i).getHouse_number();
+			row[8] = list.get(i).getEmail();
+			row[9] = list.get(i).getLandline_phone();
+			row[10] = list.get(i).getMobile_phone();
+			row[11] = list.get(i).getAccount_number();
+			row[12] = list.get(i).getBanks_name();
+			row[13] = list.get(i).getAdministrator_name();
+			row[14] = list.get(i).getComment();
+			model.addRow(row);
+		}
 	}
 
 	private void Btn_FirstActionPerformed(java.awt.event.ActionEvent evt) {
@@ -622,7 +711,8 @@ public class CompanySwing extends javax.swing.JFrame {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new CompanySwing().setVisible(true);
+				new CompanySwing();
+				System.out.println("sdsd");
 			}
 		});
 	}

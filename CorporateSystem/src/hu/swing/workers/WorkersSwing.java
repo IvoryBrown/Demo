@@ -181,6 +181,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 		jLbl_SocialSecurityCard = new javax.swing.JLabel();
 		txt_name = new javax.swing.JTextField();
 		txt_id = new javax.swing.JTextField();
+		txt_id.setEnabled(false);
 		txt_HomeAddress = new javax.swing.JTextField();
 		txt_SigCard = new javax.swing.JTextField();
 		txt_TaxCard = new javax.swing.JTextField();
@@ -217,7 +218,6 @@ public class WorkersSwing extends javax.swing.JFrame {
 		jLbl_Choose_Image.setText("Fénykép:");
 
 		txt_id.setFont(new java.awt.Font("Tahoma", 1, 14));
-		txt_id.setEnabled(false);
 		txt_id.setPreferredSize(new java.awt.Dimension(59, 50));
 		txt_name.setFont(new java.awt.Font("Tahoma", 1, 14));
 		txt_name.setPreferredSize(new java.awt.Dimension(59, 50));
@@ -668,7 +668,7 @@ public class WorkersSwing extends javax.swing.JFrame {
 		}
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new WorkersSwing().setVisible(true);
+				new WorkersSwing().setVisible(true);;
 			}
 		});
 	}

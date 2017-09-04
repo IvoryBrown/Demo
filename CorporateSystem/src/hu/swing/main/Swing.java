@@ -22,11 +22,9 @@ import java.awt.Toolkit;
 public class Swing extends JFrame implements ActionListener {
 	private JMenuBar menu;
 	private JMenu fileMenu;
-	private JMenuItem exitItem;
+	private JMenuItem exitItem, workersItem, companyItem;
 	private JPanel panel;
 	private JButton jBtnWorkers, jBtnCompany, jBtnOrders;
-	private JButton connectButton;
-	private JMenuItem workersItem;
 	DataBaseConnection dataBase = new DataBaseConnection();
 
 	@SuppressWarnings("static-access")
@@ -47,9 +45,12 @@ public class Swing extends JFrame implements ActionListener {
 		workersItem = new JMenuItem("Dolgozok");
 		workersItem.addActionListener(this);
 
+		companyItem = new JMenuItem("Partnerek");
+		companyItem.addActionListener(this);
+
 		panel = new JPanel();
 		panel.add(dataBase.getSubtitle());
-		panel.setBounds(10, 650, 1154, 25);
+		panel.setBounds(10, 650, 1264, 25);
 		panel.setBackground(new Color(224, 255, 255));
 
 		jBtnWorkers = new JButton("Dolgozok");
@@ -63,11 +64,8 @@ public class Swing extends JFrame implements ActionListener {
 		jBtnOrders = new JButton();
 		jBtnOrders.setBounds(10, 321, 279, 139);
 
-		connectButton = new JButton("Connect");
-		connectButton.setBounds(1174, 650, 100, 25);
-		connectButton.addActionListener(this);
-
 		fileMenu.add(workersItem);
+		fileMenu.add(companyItem);
 		fileMenu.add(exitItem);
 
 		this.setIconImage(Toolkit.getDefaultToolkit()
@@ -79,7 +77,6 @@ public class Swing extends JFrame implements ActionListener {
 		this.getContentPane().add(panel);
 		this.setJMenuBar(menu);
 		this.getContentPane().add(jBtnWorkers);
-		this.getContentPane().add(connectButton);
 		this.getContentPane().add(jBtnCompany);
 		this.getContentPane().add(jBtnOrders);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -92,9 +89,7 @@ public class Swing extends JFrame implements ActionListener {
 			System.exit(0);
 		if (e.getSource() == jBtnWorkers || e.getSource() == workersItem)
 			new WorkersSwing().Start();
-		if (e.getSource() == connectButton)
-			dataBase.setSubtitle(null);
-		if (e.getSource() == jBtnCompany)
+		if (e.getSource() == jBtnCompany || e.getSource() == companyItem)
 			new CompanySwing();
 	}
 }
