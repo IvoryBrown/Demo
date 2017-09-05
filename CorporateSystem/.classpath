@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="F:/Programozás/Driver  #/com.mysql.jdbc_5.1.5.jar"/>
+	<classpathentry kind="lib" path="F:/Programozás/Driver  #/jcalendar-1.3.2.jar"/>
+	<classpathentry kind="lib" path="F:/Programozás/Driver  #/java-rt-jar-stubs-1.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

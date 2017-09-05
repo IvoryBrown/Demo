@@ -90,6 +90,6 @@ public class Swing extends JFrame implements ActionListener {
 		if (e.getSource() == jBtnWorkers || e.getSource() == workersItem)
 			new WorkersSwing().Start();
 		if (e.getSource() == jBtnCompany || e.getSource() == companyItem)
-			new CompanySwing();
+			new CompanySwing().Start();
 	}
 }
